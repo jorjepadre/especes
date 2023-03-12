@@ -2,7 +2,7 @@ const nodelibs = require('node-libs-react-native');
 nodelibs.crypto = require.resolve('react-native-crypto-js');
 const { getDefaultConfig } = require('metro-config');
 
-module.exports = async() => {
+module.exports = async () => {
   const {
     resolver: { sourceExts, assetExts },
   } = await getDefaultConfig();
@@ -18,9 +18,9 @@ module.exports = async() => {
       }),
     },
     resolver: {
-      assetExts: assetExts.filter((ext) => ext !== 'svg'),
+      assetExts: assetExts.filter(ext => ext !== 'svg'),
       sourceExts: [...sourceExts, 'svg'],
       extraNodeModules: nodelibs,
-    }
-  }
+    },
+  };
 };

@@ -18,9 +18,9 @@ module.exports = {
         alias: {
           '@components': './components',
           '@assets': './assets',
-        }
-      }
+        },
+      },
     ],
     'react-native-reanimated/plugin',
-  ]
+  ],
 };
