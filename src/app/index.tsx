@@ -1,8 +1,11 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
-import { StyleSheet, Text, View } from 'react-native'
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
+import { StyleSheet, Text, View } from 'react-native';
 
 const Stack = createStackNavigator<AppStackParameterList>();
 
@@ -13,7 +16,9 @@ export type AppStackParameterList = {
 
 const App = () => {
   return (
-    <View style={styles.centered}><Text style={styles.text}>App</Text></View>
+    <View style={styles.centered}>
+      <Text style={styles.text}>App</Text>
+    </View>
     // <SafeAreaProvider>
     //   <NavigationContainer theme={DarkTheme}>
     //     <Stack.Navigator screenOptions={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
@@ -24,8 +29,6 @@ const App = () => {
 
     //       {/* More Pages Here */}
 
-
-
     //       {/* Main Page */}
     //       {/* <Stack.Screen name="Main" component={Main}
     //         options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }} /> */}
@@ -33,22 +36,22 @@ const App = () => {
     //     </Stack.Navigator>
     //   </NavigationContainer>
     // </SafeAreaProvider>
-  )
-}
+  );
+};
 
 export default App;
 
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
   },
   text: {
     // flex: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "blue",
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue',
+  },
 });
