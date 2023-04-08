@@ -46,7 +46,7 @@ const Seed = (props: StackScreenProps<AppStackParameterList, 'Seed'>) => {
           onPress={() => {
             dispatch(setMnemonic(mnemonic));
             dispatch(addAccount({ name: accountName, nonce: 0 }));
-            setTimeout(() => props.navigation.navigate('Main'));
+            props.navigation.reset({ index: 0, routes: [{ name: 'Splash' }] });
           }}>
           Remind me later
         </Button>

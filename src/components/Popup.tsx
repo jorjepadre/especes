@@ -32,5 +32,4 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 5,
     borderBottomEndRadius: 5,
   },
-  closeButton: { position: 'absolute', right: 20 },
 });

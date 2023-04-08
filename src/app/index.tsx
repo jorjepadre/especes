@@ -16,20 +16,21 @@ import Register from '../pages/Register';
 import CreateWallet from '../pages/CreateWallet';
 import Seed from '../pages/Seed';
 
-import Main from '../pages/Main';
+// import Main from '../pages/Main';
+import TabBar from '../pages/TabBar';
 
 const Stack = createStackNavigator<AppStackParameterList>();
 
 export type AppStackParameterList = {
   Splash: undefined;
-  Main?: { screen: string };
+  // Main?: { screen: string };
+  TabBar: undefined;
 
   Register: undefined;
   CreateWallet: undefined;
 
   Seed: { mnemonic: string; accountName: string };
   ConfirmSeed: { mnemonic: string; accountName: string };
-  WalletCreated: undefined;
   ImportWallet: undefined;
 
   Unlock: undefined;
@@ -52,11 +53,10 @@ const App = () => {
               <Stack.Screen name="CreateWallet" component={CreateWallet} options={options} />
               <Stack.Screen name="Seed" component={Seed} options={options} />
               {/* <Stack.Screen name="ConfirmSeed" component={ConfirmSeed} options={{}} /> */}
-              {/* <Stack.Screen name="WalletCreated" component={WalletCreated} options={{}} /> */}
 
               {/* <Stack.Screen name="ImportWallet" component={ImportWallet} options={{}} /> */}
 
-              <Stack.Screen name="Main" component={Main} options={options} />
+              <Stack.Screen name="TabBar" component={TabBar} options={options} />
               {/* <Stack.Screen name="Unlock" component={Unlock} options={{}} /> */}
             </Stack.Navigator>
           </NavigationContainer>

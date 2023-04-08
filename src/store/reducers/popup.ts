@@ -33,6 +33,5 @@ export const popupSlice = createSlice({
   },
 });
 
-export const { showPopup, countDown, addTimeout, hidePopup } =
-  popupSlice.actions;
+export const { showPopup, countDown, addTimeout, hidePopup } = popupSlice.actions;
 export default popupSlice.reducer;

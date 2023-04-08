@@ -29,11 +29,11 @@ const Splash = (props: StackScreenProps<AppStackParameterList, 'Splash'>) => {
         if (store.getState().chain[chainType].accounts.length === 0) {
           utils[chainType].generateKeypairs(seed).then((accounts) => {
             dispatch(setAccounts(accounts));
-            if (!isOnUnlockScreen) props.navigation.navigate('Main', { screen: 'TabBar' });
+            if (!isOnUnlockScreen) props.navigation.navigate('TabBar');
           });
         }
         // If found an existing Account (Keypair) and is not on Unlock Screen==> Move straight to Main and Tabbar
-        else if (!isOnUnlockScreen) props.navigation.navigate('Main', { screen: 'TabBar' });
+        else if (!isOnUnlockScreen) props.navigation.navigate('TabBar');
       }
 
       // If Seed is Not Stored -> Move to Register
@@ -46,11 +46,12 @@ const Splash = (props: StackScreenProps<AppStackParameterList, 'Splash'>) => {
 
   // useEffect(() => {
   //   const subscribe = AppState.addEventListener('change', (state) => {
-  //     const isOnUnlockScreen = props.navigation.getState().routes[props.navigation.getState().routes.length - 1].name === 'Unlock';
+  //     const routes = props.navigation.getState().routes;
+  //     const isOnUnlockScreen = routes[routes.length - 1].name === 'Unlock';
   //     if ((state === 'inactive' || state === 'background') && !isOnUnlockScreen) dispatch(setTimeLoggedOut(Date.now()));
   //     if (state === 'active' && store.getState().security.timeLoggedOut + store.getState().security.sessionTimeout * 60 * 1e3 < Date.now() && seed) {
-  //   props.navigation.navigate('Unlock');
-  // }
+  //       props.navigation.navigate('Unlock');
+  //     }
   //   });
   //   return () => subscribe.remove();
   // }, []);
