@@ -1,35 +1,35 @@
-import { useState } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AppStackParameterList } from '../app';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-
-import { BLOCKCHAIN_LIST } from '../utils/const';
-import KeyboardRemovableView from '../components/DismissKeyboardView';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text, View } from 'react-native';
-import { screenHeight, screenWidth, typography } from '../assets';
 import InputField, { InputActions, useInputReducer } from '../components/InputField';
+import { useState } from 'react';
+import { BLOCKCHAIN_LIST } from '../utils/const';
+import DismissKeyboardView from '../components/DismissKeyboardView';
+import { screenHeight, screenWidth, typography } from '../assets';
 import ItemSelector from '../components/ItemSelector';
 import Button from '../components/Button';
+import { hdkey } from 'ethereumjs-wallet';
+import * as bip39 from 'bip39';
+import { addAccount, setPassword } from '../store/reducers/wallet';
 import utils from '../utils';
-import { setPassword } from '../store/reducers/wallet';
-import store from '../store';
+import { setMnemonic } from '../store/reducers/chain';
 
-const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWallet'>) => {
+const ImportWallet = (props: StackScreenProps<AppStackParameterList, 'ImportWallet'>) => {
   const dispatch = useDispatch();
 
   const [accountName, accountNameDispatch] = useInputReducer('Copper');
   const [password, passwordDispatch] = useInputReducer('11111111');
   const [passwordConfirm, passwordConfirmDispatch] = useInputReducer('11111111');
+  const [seed, seedDispatch] = useInputReducer();
   const [networkSelected, setNetworkSelected] = useState<keyof typeof BLOCKCHAIN_LIST>('eth');
 
   return (
-    <KeyboardRemovableView>
+    <DismissKeyboardView>
       <SafeAreaView style={styles.container}>
         <View style={styles.title}>
-          <Text style={typography.title1}>Create Account</Text>
+          <Text style={typography.title1}>Import Wallet</Text>
         </View>
-
         <View style={styles.input}>
           <Text style={typography.title2}>Account Name</Text>
           <InputField state={accountName} dispatch={accountNameDispatch} placeholder={'Account Name'} />
@@ -43,6 +43,17 @@ const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWall
         <View style={styles.input}>
           <Text style={typography.title2}>Confirm Password</Text>
           <InputField secureTextEntry state={passwordConfirm} dispatch={passwordConfirmDispatch} placeholder={'Confirm Password'} />
+        </View>
+
+        <View style={styles.input}>
+          <Text style={typography.title2}>Secret Backup Phrase</Text>
+          <InputField
+            state={seed}
+            style={{ height: screenHeight * 0.18, textAlignVertical: 'top' }}
+            contentContainerStyle={{ height: screenHeight * 0.18 }}
+            dispatch={seedDispatch}
+            placeholder="Paste or Insert Mnemonic Phrase separated with spaces"
+          />
         </View>
 
         <View style={styles.input}>
@@ -62,19 +73,35 @@ const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWall
                 if (accountNameError) accountNameDispatch({ type: InputActions.SET_ERROR, payload: 'Gimme a name, bro)' });
                 if (passwordError) passwordDispatch({ type: InputActions.SET_ERROR, payload: 'Not time to go short. Think about security, bro)' });
                 if (passwordConfirmError) passwordConfirmDispatch({ type: InputActions.SET_ERROR, payload: 'U gotta be consistent, bro)' });
+                // Mnemonic Check
+                let guard = true;
+                try {
+                  hdkey.fromMasterSeed(bip39.mnemonicToSeedSync(seed.value.toLowerCase().trim()));
+                  guard = false;
+                } catch (e) {
+                  seedDispatch({
+                    type: InputActions.SET_ERROR,
+                    payload: 'Wrong Secret Backup Phrase. Please, try again.',
+                  });
+                  guard = true;
+                }
 
-                if (!(accountNameError || passwordError || passwordConfirmError)) {
+                if (!(accountNameError || passwordError || passwordConfirmError || guard)) {
                   dispatch(setPassword(password.value));
-                  const mnemonic = await utils[store.getState().chain.type].generateMnemonic();
-                  props.navigation.navigate('Seed', { accountName: accountName.value, mnemonic });
+                  console.log('Import ', 1);
+                  dispatch(setMnemonic(seed.value.toLowerCase().trim()));
+                  console.log('Import ', 2);
+                  dispatch(addAccount({ name: accountName, nonce: 0 }));
+                  console.log('Import ', 3);
+                  props.navigation.reset({ index: 0, routes: [{ name: 'Splash' }] });
                 }
               }}>
-              Create Account
+              Import Wallet
             </Button>
           </View>
         </View>
       </SafeAreaView>
-    </KeyboardRemovableView>
+    </DismissKeyboardView>
   );
 };
 
@@ -82,6 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  box: { marginTop: screenHeight * 0.02 },
   title: {
     alignItems: 'center',
     marginBottom: screenHeight * 0.03,
@@ -104,4 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateWallet;
+export default ImportWallet;

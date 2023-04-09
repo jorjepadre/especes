@@ -79,7 +79,7 @@ const InputField = (props: InputFieldProps) => {
         {props.children}
         {props.secureTextEntry && (
           <TouchableOpacity onPress={() => props.dispatch({ type: PasswordActions.CHANGE_VISIBILITY })}>
-            {!visible ? <Image style={styles.showHideImage} source={require('@assets/icons/hide.png')} /> : <Image style={styles.showHideImage} source={require('@assets/icons/show.png')} />}
+            {!visible ? <Image style={styles.showHideImage} source={require('../assets/icons/hide.png')} /> : <Image style={styles.showHideImage} source={require('../assets/icons/show.png')} />}
           </TouchableOpacity>
         )}
       </View>

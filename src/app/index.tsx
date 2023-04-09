@@ -15,16 +15,16 @@ import Splash from '../pages/Splash';
 import Register from '../pages/Register';
 import CreateWallet from '../pages/CreateWallet';
 import Seed from '../pages/Seed';
+import ImportWallet from '../pages/ImportWallet';
 
-// import Main from '../pages/Main';
-import TabBar from '../pages/TabBar';
+import Main from '../pages/Main';
+import Unlock from '../pages/Unlock';
 
 const Stack = createStackNavigator<AppStackParameterList>();
 
 export type AppStackParameterList = {
   Splash: undefined;
-  // Main?: { screen: string };
-  TabBar: undefined;
+  Main?: { screen: string };
 
   Register: undefined;
   CreateWallet: undefined;
@@ -48,16 +48,16 @@ const App = () => {
           <NavigationContainer theme={DarkTheme}>
             <Stack.Navigator screenOptions={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
               <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }} />
+              <Stack.Screen name="Main" component={Main} options={{ headerShown: false, gestureEnabled: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }} />
 
               <Stack.Screen name="Register" component={Register} options={options} />
               <Stack.Screen name="CreateWallet" component={CreateWallet} options={options} />
               <Stack.Screen name="Seed" component={Seed} options={options} />
               {/* <Stack.Screen name="ConfirmSeed" component={ConfirmSeed} options={{}} /> */}
 
-              {/* <Stack.Screen name="ImportWallet" component={ImportWallet} options={{}} /> */}
+              <Stack.Screen name="ImportWallet" component={ImportWallet} options={options} />
 
-              <Stack.Screen name="TabBar" component={TabBar} options={options} />
-              {/* <Stack.Screen name="Unlock" component={Unlock} options={{}} /> */}
+              <Stack.Screen name="Unlock" component={Unlock} options={options} />
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

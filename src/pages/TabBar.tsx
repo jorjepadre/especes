@@ -1,7 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { AppStackParameterList } from '../app';
+import { MainStackParameterList } from './Main';
 import { View, Image, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import { screenHeight, screenWidth } from '../assets';
@@ -24,8 +24,9 @@ export type TabBarParameterList = {
 
 const Tab = createBottomTabNavigator<TabBarParameterList>();
 
-const TabBar = (props: StackScreenProps<AppStackParameterList, 'TabBar'>) => {
+const TabBar = (props: StackScreenProps<MainStackParameterList, 'TabBar'>) => {
   const routes = props.navigation.getState().routes;
+  console.log('Inside Tabbar');
   return (
     <>
       <View style={routes[routes.length - 1].state?.index !== 0 && { height: 0 }}>
