@@ -19,7 +19,7 @@ const ItemSelector: React.FC<Props> = ({ data, selected, setSelected }) => {
         {data.map((item) => (
           <TouchableOpacity key={item} onPress={() => handleItemPress(item)}>
             <View style={[styles.item, selected === item && styles.selectedItem]}>
-              <Text>{item}</Text>
+              <Text style={{ color: '#ffffff' }}>{item}</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   item: {
+    color: '#ffffff',
     width: screenWidth * 0.2,
     padding: 10,
     borderRadius: 8,

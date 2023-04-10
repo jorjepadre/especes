@@ -5,6 +5,7 @@ import { screenHeight, screenWidth, typography } from '../assets';
 import store, { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTimeout, countDown, showPopup } from '../store/reducers/popup';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Management = (props: StackScreenProps<SettingsStackParameterList, 'Management'>) => {
   const dispatch = useDispatch();
@@ -12,21 +13,22 @@ const Management = (props: StackScreenProps<SettingsStackParameterList, 'Managem
   const mnemonic = store.getState().chain[chainType].mnemonic!;
   return (
     <View style={styles.container}>
-      <View style={styles.title}>
-        <Text style={typography.title1}>Management</Text>
-      </View>
-
+      <SafeAreaView>
+        <View style={styles.title}>
+          <Text style={typography.title1}>Management</Text>
+        </View>
+      </SafeAreaView>
       <View style={{ alignItems: 'center' }}>
         <Text style={typography.title1}>Mnemonic Phrase</Text>
         <View style={styles.mnemonic}>
           <TouchableOpacity
             onPress={async () => {
               Clipboard.setString(mnemonic);
-              if (props.route.params) dispatch(showPopup('Secret Backup Phrase has been copied!'));
+              if (props.route.params) dispatch(showPopup('Copied Backup Phrase'));
               dispatch(addTimeout(setTimeout(() => dispatch(countDown()), 2000)));
             }}>
             <View>
-              <Text style={{ fontSize: 16 }}>{mnemonic}</Text>
+              <Text style={{ fontSize: 16, color: '#ffffff' }}>{mnemonic}</Text>
             </View>
           </TouchableOpacity>
         </View>

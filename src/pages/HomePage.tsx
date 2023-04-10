@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainToken: { width: screenWidth * 0.2, height: screenHeight * 0.15, resizeMode: 'contain', alignItems: 'center' },
-  balance: { fontSize: fontScale * 20, fontFamily: 'OpenSans-SemiBold', marginTop: screenHeight * 0.02 },
+  balance: { fontSize: fontScale * 20, fontFamily: 'OpenSans-SemiBold', marginTop: screenHeight * 0.02, color: '#ffffff' },
   buttons: {
     flexDirection: 'row',
     width: '69%',
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   rate: {
     fontSize: fontScale * 16,
     fontFamily: 'OpenSans-Regular',
+    color: '#ffffff',
   },
 });
 

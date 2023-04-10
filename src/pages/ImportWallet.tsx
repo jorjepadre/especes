@@ -49,8 +49,8 @@ const ImportWallet = (props: StackScreenProps<AppStackParameterList, 'ImportWall
           <Text style={typography.title2}>Secret Backup Phrase</Text>
           <InputField
             state={seed}
-            style={{ height: screenHeight * 0.18, textAlignVertical: 'top', flexDirection: 'row', flexWrap: 'wrap' }}
-            contentContainerStyle={{ height: screenHeight * 0.18 }}
+            style={{ height: screenHeight * 0.07, textAlignVertical: 'top', flexDirection: 'row', color: '#ffffff' }}
+            contentContainerStyle={{ height: screenHeight * 0.07 }}
             dispatch={seedDispatch}
             placeholder="Paste or Insert Mnemonic Phrase separated with spaces"
           />

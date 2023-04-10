@@ -6,7 +6,7 @@ export const screenHeight = 1.05 * Dimensions.get('window').height - initialWind
 
 export const screenWidth = Dimensions.get('window').width - initialWindowMetrics!.insets.left - initialWindowMetrics!.insets.right;
 
-export const fontScale = (1.2 * screenHeight) / 844;
+export const fontScale = screenHeight / 800;
 
 export const typography = StyleSheet.create({
   title1: {

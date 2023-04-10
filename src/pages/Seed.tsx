@@ -27,7 +27,7 @@ const Seed = (props: StackScreenProps<AppStackParameterList, 'Seed'>) => {
               dispatch(addTimeout(setTimeout(() => dispatch(countDown()), 2000)));
             }}>
             <View>
-              <Text style={{ fontSize: 16 }}>{mnemonic}</Text>
+              <Text style={{ fontSize: 16, color: '#ffffff' }}>{mnemonic}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     marginVertical: screenHeight * 0.01,
     paddingHorizontal: screenWidth * 0.01,
     paddingVertical: screenHeight * 0.01,
+    color: '#ffffff',
   },
 });
 

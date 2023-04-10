@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { screenHeight, screenWidth, typography } from '../assets';
 import { hidePopup } from '../store/reducers/popup';
 import { RootState } from '../store';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Popup = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     backgroundColor: '#4D4D4D',
     width: screenWidth,
-    height: screenHeight * 0.09,
+    height: screenHeight * 0.1,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',

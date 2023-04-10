@@ -11,6 +11,7 @@ import { setPassword } from '../store/reducers/wallet';
 import ItemSelector from '../components/ItemSelector';
 import { setBiometricsAllowed, setSessionTimeout } from '../store/reducers/security';
 import ReactNativeBiometrics from 'react-native-biometrics';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Security = (props: StackScreenProps<SettingsStackParameterList, 'Security'>) => {
   const dispatch = useDispatch();
@@ -32,9 +33,11 @@ const Security = (props: StackScreenProps<SettingsStackParameterList, 'Security'
 
   return (
     <View>
-      <View style={styles.title}>
-        <Text style={typography.title1}>Security</Text>
-      </View>
+      <SafeAreaView>
+        <View style={styles.title}>
+          <Text style={typography.title1}>Security</Text>
+        </View>
+      </SafeAreaView>
       <View style={{ alignItems: 'center' }}>
         <Button
           type="settingsButton"

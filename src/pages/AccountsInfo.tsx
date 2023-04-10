@@ -9,6 +9,7 @@ import Button from '../components/Button';
 import InputField, { useInputReducer } from '../components/InputField';
 import { addAccount, changeAccountName, removeAccount, setSelectedAccount } from '../store/reducers/wallet';
 import { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'AccountsInfo'>) => {
   const { name, nonce, pub, pri } = useAccount();
@@ -52,9 +53,11 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
 
   return (
     <View style={styles.container}>
-      <View style={styles.title}>
-        <Text style={typography.title1}>Settings</Text>
-      </View>
+      <SafeAreaView>
+        <View style={styles.title}>
+          <Text style={typography.title1}>Settings</Text>
+        </View>
+      </SafeAreaView>
 
       <View style={styles.accountName}>
         {!changeAccountNameFlag ? (

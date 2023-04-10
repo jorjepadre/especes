@@ -21,9 +21,6 @@ const Receive = (props: StackScreenProps<HomeStackParameterList, 'Receive'>) => 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c1c1c',
-    paddingHorizontal: '5%',
-    paddingTop: '10%',
   },
   header: {
     alignSelf: 'center',
@@ -39,7 +36,6 @@ const styles = StyleSheet.create({
   QRCode: {
     alignSelf: 'center',
     justifyContent: 'center',
-
     height: screenHeight * 0.26,
     width: screenHeight * 0.26,
     backgroundColor: '#ffffff',

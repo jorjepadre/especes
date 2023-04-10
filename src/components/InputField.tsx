@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize: fontScale * 16,
     fontFamily: 'OpenSans-SemiBold',
     flex: 1,
+    flexWrap: 'wrap',
   },
   textInputField: {
     width: '100%',
