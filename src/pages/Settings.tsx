@@ -8,9 +8,6 @@ import AccountsInfo from './AccountsInfo';
 export type SettingsStackParameterList = {
   Settings: undefined;
   AccountsInfo: undefined;
-  ChangeAccountName: { index: number };
-  Accounts: undefined;
-  AddAccount: undefined;
   AddressManagement: undefined;
   ChangePassword: undefined;
   Network: undefined;
@@ -29,9 +26,6 @@ const Settings = (props: BottomTabScreenProps<TabBarParameterList, 'Settings'>) 
     <Stack.Navigator id="SettingsStack" screenOptions={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
       <Stack.Screen name="Settings" component={SettingsPage} />
       <Stack.Screen name="AccountsInfo" component={AccountsInfo} />
-      {/* <Stack.Screen name="ChangeAccountName" component={ChangeAccountName} /> */}
-      {/* <Stack.Screen name="Accounts" component={Accounts} /> */}
-      {/* <Stack.Screen name="AddAccount" component={AddAccount} /> */}
       {/* <Stack.Screen name="AddressManagement" component={AddressManagement} /> */}
       {/* <Stack.Screen name="ChangePassword" component={ChangePassword} /> */}
       {/* <Stack.Screen name="Network" component={Network} /> */}
