@@ -31,6 +31,7 @@ const inputReducer = (
 ) => {
   switch (action.type) {
     case InputActions.SET_VALUE:
+      console.log('Maybe Here: ', action.payload);
       return {
         ...state,
         value: action.payload!,
@@ -64,6 +65,7 @@ type InputFieldProps = {
 
 const InputField = (props: InputFieldProps) => {
   const { value, errorMessage, visible } = props.state;
+  console.log('I think here', value, errorMessage, visible);
   return (
     <View>
       <View style={[styles.textInputField, props.contentContainerStyle, errorMessage !== '' && { borderColor: '#b54747', backgroundColor: '#451919' }]}>

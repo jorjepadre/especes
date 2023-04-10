@@ -50,7 +50,9 @@ const Seed = (props: StackScreenProps<AppStackParameterList, 'Seed'>) => {
           }}>
           Remind me later
         </Button>
-        <Button type="primary">Continue</Button>
+        <Button type="primary" onPress={() => props.navigation.navigate('SeedConfirm', { mnemonic, accountName })}>
+          Continue
+        </Button>
       </View>
     </SafeAreaView>
   );

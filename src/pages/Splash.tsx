@@ -36,13 +36,13 @@ const Splash = (props: StackScreenProps<AppStackParameterList, 'Splash'>) => {
             console.log(8, routes[routes.length - 1].name);
             dispatch(setAccounts(accounts));
             console.log(9, routes[routes.length - 1].name);
-            if (!isOnUnlockScreen) props.navigation.navigate('Main', { screen: 'TabBar' });
+            if (!isOnUnlockScreen) props.navigation.navigate('Main');
           });
         }
         // If found an existing Account (Keypair) and is not on Unlock Screen ==> Move straight to Main and Tabbar
         else if (!isOnUnlockScreen) {
           console.log(10, routes[routes.length - 1].name);
-          props.navigation.navigate('Main');
+          if (!isOnUnlockScreen) props.navigation.navigate('Main');
         }
       }
       // If Seed is Not Stored -> Move to Register

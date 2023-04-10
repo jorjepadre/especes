@@ -19,18 +19,19 @@ import ImportWallet from '../pages/ImportWallet';
 
 import Main from '../pages/Main';
 import Unlock from '../pages/Unlock';
+import SeedConfirm from '../pages/SeedConfirm';
 
 const Stack = createStackNavigator<AppStackParameterList>();
 
 export type AppStackParameterList = {
   Splash: undefined;
-  Main?: { screen: string };
+  Main?: undefined;
 
   Register: undefined;
   CreateWallet: undefined;
 
   Seed: { mnemonic: string; accountName: string };
-  ConfirmSeed: { mnemonic: string; accountName: string };
+  SeedConfirm: { mnemonic: string; accountName: string };
   ImportWallet: undefined;
 
   Unlock: undefined;
@@ -53,7 +54,7 @@ const App = () => {
               <Stack.Screen name="Register" component={Register} options={options} />
               <Stack.Screen name="CreateWallet" component={CreateWallet} options={options} />
               <Stack.Screen name="Seed" component={Seed} options={options} />
-              {/* <Stack.Screen name="ConfirmSeed" component={ConfirmSeed} options={{}} /> */}
+              <Stack.Screen name="SeedConfirm" component={SeedConfirm} options={options} />
 
               <Stack.Screen name="ImportWallet" component={ImportWallet} options={options} />
 

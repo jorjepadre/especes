@@ -21,7 +21,7 @@ const ImportWallet = (props: StackScreenProps<AppStackParameterList, 'ImportWall
   const [accountName, accountNameDispatch] = useInputReducer('Copper');
   const [password, passwordDispatch] = useInputReducer('11111111');
   const [passwordConfirm, passwordConfirmDispatch] = useInputReducer('11111111');
-  const [seed, seedDispatch] = useInputReducer();
+  const [seed, seedDispatch] = useInputReducer('oven shadow avoid small over bounce current color stadium ginger gentle tomorrow');
   const [networkSelected, setNetworkSelected] = useState<keyof typeof BLOCKCHAIN_LIST>('eth');
 
   return (
@@ -89,6 +89,7 @@ const ImportWallet = (props: StackScreenProps<AppStackParameterList, 'ImportWall
                 if (!(accountNameError || passwordError || passwordConfirmError || guard)) {
                   dispatch(setPassword(password.value));
                   console.log('Import ', 1);
+                  console.log(seed.value.toLowerCase().trim());
                   dispatch(setMnemonic(seed.value.toLowerCase().trim()));
                   console.log('Import ', 2);
                   dispatch(addAccount({ name: accountName, nonce: 0 }));
