@@ -65,7 +65,7 @@ const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWall
 
                 if (!(accountNameError || passwordError || passwordConfirmError)) {
                   dispatch(setPassword(password.value));
-                  const mnemonic = await utils[store.getState().chain.type].generateMnemonic();
+                  const mnemonic = await utils[store.getState().chain.type!].generateMnemonic();
                   props.navigation.navigate('Seed', { accountName: accountName.value, mnemonic });
                 }
               }}>

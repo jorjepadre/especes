@@ -22,6 +22,7 @@
     "node-libs-react-native": "^1.2.1",
     "react": "18.2.0",
     "react-native": "0.71.3",
+    "react-native-biometrics": "^2.2.2",
     "react-native-crypto-js": "^1.0.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-get-random-values": "^1.8.0",

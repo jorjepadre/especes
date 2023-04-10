@@ -46,7 +46,10 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
             onPress={async () => {
               const permission = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
               const result = await request(permission);
-              if (result === RESULTS.GRANTED) props.navigation.navigate('Scan', props.route.params);
+              console.log(result);
+              if (result === RESULTS.GRANTED) {
+                props.navigation.navigate('Scan', props.route.params);
+              }
             }}>
             <Image source={require('../assets/icons/qr.png')} style={{ tintColor: '#9b924d' }} />
           </TouchableOpacity>

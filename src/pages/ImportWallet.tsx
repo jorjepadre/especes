@@ -21,7 +21,7 @@ const ImportWallet = (props: StackScreenProps<AppStackParameterList, 'ImportWall
   const [accountName, accountNameDispatch] = useInputReducer('Copper');
   const [password, passwordDispatch] = useInputReducer('11111111');
   const [passwordConfirm, passwordConfirmDispatch] = useInputReducer('11111111');
-  const [seed, seedDispatch] = useInputReducer('oven shadow avoid small over bounce current color stadium ginger gentle tomorrow');
+  const [seed, seedDispatch] = useInputReducer('cabbage permit pink arch letter evoke only wrist genre brass spend soon');
   const [networkSelected, setNetworkSelected] = useState<keyof typeof BLOCKCHAIN_LIST>('eth');
 
   return (

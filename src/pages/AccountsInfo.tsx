@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'AccountsInfo'>) => {
   const { name, nonce, pub, pri } = useAccount();
   const [changeAccountNameFlag, setChangeAccountNameFlag] = useState(false);
-  const [accountName, accountNameDispatch] = useInputReducer(name);
+  const [accountName, accountNameDispatch] = useInputReducer();
   // console.log(name, nonce, pub, pri);
   // console.log('Chain', store.getState().chain['eth']);
   // console.log('Wallet', store.getState().wallet);
@@ -23,7 +23,6 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
   const accountNames = useSelector((state: RootState) => state.wallet.accounts);
   const selected = useSelector((state: RootState) => state.wallet.selectedAccount);
 
-  console.log(accountNames);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,7 +81,6 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
           </View>
         )}
       </View>
-      {/* <Text style={styles.label}>{pub.slice(0, 8) + '...' + pub?.slice(-8)}</Text> */}
 
       <View>
         <FlatList keyExtractor={(item) => item.pub.toString()} showsVerticalScrollIndicator={false} data={accounts} renderItem={AccountItem} />

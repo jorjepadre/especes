@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import { screenHeight, screenWidth, typography } from '../assets';
 import { resetStore } from '../store';
 
-const SettingsPage = (props: StackScreenProps<SettingsStackParameterList, 'Settings'>) => {
+const SettingsPage = (props: StackScreenProps<SettingsStackParameterList, 'SettingsPage'>) => {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -15,8 +15,8 @@ const SettingsPage = (props: StackScreenProps<SettingsStackParameterList, 'Setti
         <Button type="settingsButton" onPress={() => props.navigation.navigate('AccountsInfo')}>
           Accounts Info
         </Button>
-        <Button type="settingsButton" onPress={() => props.navigation.navigate('AddressManagement')}>
-          Address Management
+        <Button type="settingsButton" onPress={() => props.navigation.navigate('Management')}>
+          Management
         </Button>
         <Button type="settingsButton" onPress={() => props.navigation.navigate('Network')}>
           Network

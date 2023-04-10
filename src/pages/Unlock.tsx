@@ -9,16 +9,28 @@ import { useDispatch } from 'react-redux';
 import { setTimeLoggedOut } from '../store/reducers/security';
 import { fontScale, screenWidth } from '../assets';
 import { useFocusEffect } from '@react-navigation/native';
+import ReactNativeBiometrics from 'react-native-biometrics';
+import { useCallback } from 'react';
 
 const Unlock = (props: StackScreenProps<AppStackParameterList, 'Unlock'>) => {
   const [password, passwordDispatch] = useInputReducer();
   const dispatch = useDispatch();
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     if (store.getState().security.biometricsAllowed) setupBiometrics();
-  //   }, [])
-  // );
+  const setupBiometrics = async () => {
+    const result = await ReactNativeBiometrics.simplePrompt({
+      promptMessage: 'Please authenticate',
+    });
+    if (result.success) {
+      dispatch(setTimeLoggedOut(Date.now()));
+      setTimeout(() => props.navigation.navigate('Main'));
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      if (store.getState().security.biometricsAllowed) setupBiometrics();
+    }, [])
+  );
 
   return (
     <DismissKeyboardView>

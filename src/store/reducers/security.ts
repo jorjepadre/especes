@@ -8,7 +8,7 @@ export type securityState = {
 
 const initialState: securityState = {
   timeLoggedOut: Date.now(),
-  sessionTimeout: 10,
+  sessionTimeout: 1,
   biometricsAllowed: false,
 };
 

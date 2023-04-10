@@ -4,11 +4,13 @@ import { Text, View } from 'react-native';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import SettingsPage from './SettingsPage';
 import AccountsInfo from './AccountsInfo';
+import Security from './Security';
+import Management from './Management';
 
 export type SettingsStackParameterList = {
-  Settings: undefined;
+  SettingsPage: undefined;
   AccountsInfo: undefined;
-  AddressManagement: undefined;
+  Management: undefined;
   ChangePassword: undefined;
   Network: undefined;
   ImportFromKey: undefined;
@@ -24,14 +26,11 @@ const Stack = createStackNavigator<SettingsStackParameterList>();
 const Settings = (props: BottomTabScreenProps<TabBarParameterList, 'Settings'>) => {
   return (
     <Stack.Navigator id="SettingsStack" screenOptions={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
-      <Stack.Screen name="Settings" component={SettingsPage} />
+      <Stack.Screen name="SettingsPage" component={SettingsPage} />
       <Stack.Screen name="AccountsInfo" component={AccountsInfo} />
-      {/* <Stack.Screen name="AddressManagement" component={AddressManagement} /> */}
-      {/* <Stack.Screen name="ChangePassword" component={ChangePassword} /> */}
+      <Stack.Screen name="Management" component={Management} />
+      <Stack.Screen name="Security" component={Security} />
       {/* <Stack.Screen name="Network" component={Network} /> */}
-      {/* <Stack.Screen name="ImportFromKey" component={ImportFromKey} /> */}
-      {/* <Stack.Screen name="Security" component={Security} /> */}
-      {/* <Stack.Screen name="SecurityLock" component={SecurityLock} /> */}
       {/* <Stack.Screen name="SessionTimeout" component={SessionTimeout} /> */}
     </Stack.Navigator>
   );
