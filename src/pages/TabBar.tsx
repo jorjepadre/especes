@@ -26,7 +26,6 @@ const Tab = createBottomTabNavigator<TabBarParameterList>();
 
 const TabBar = (props: StackScreenProps<MainStackParameterList, 'TabBar'>) => {
   const routes = props.navigation.getState().routes;
-  console.log('Inside Tabbar');
   return (
     <>
       <View style={routes[routes.length - 1].state?.index !== 0 && { height: 0 }}>

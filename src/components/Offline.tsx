@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { fontScale, screenHeight, screenWidth } from '../assets';
 
 const Offline = () => {
-  console.log('Inside offline');
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icons/offline.png')} style={styles.image} />

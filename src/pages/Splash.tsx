@@ -17,6 +17,8 @@ const Splash = (props: StackScreenProps<AppStackParameterList, 'Splash'>) => {
   const dispatch = useDispatch();
   const seed = useMnemonic();
   const chainType = useSelector((state: RootState) => state.chain.type);
+  console.log('Current Seed', seed);
+  console.log('Current Accounts', store.getState().chain[chainType].accounts);
   console.log(1);
   useEffect(() => {
     console.log(2);
@@ -63,7 +65,9 @@ const Splash = (props: StackScreenProps<AppStackParameterList, 'Splash'>) => {
       console.log(15);
       const isOnUnlockScreen = routes[routes.length - 1].name === 'Unlock';
       console.log(16);
-      if ((state === 'inactive' || state === 'background') && !isOnUnlockScreen) dispatch(setTimeLoggedOut(Date.now()));
+      if ((state === 'inactive' || state === 'background') && !isOnUnlockScreen) {
+        dispatch(setTimeLoggedOut(Date.now()));
+      }
       console.log(17);
       if (state === 'active' && store.getState().security.timeLoggedOut + store.getState().security.sessionTimeout * 60 * 1e3 < Date.now() && seed) {
         console.log(18);

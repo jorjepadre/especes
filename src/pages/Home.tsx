@@ -23,11 +23,7 @@ const HomeStack = createStackNavigator<HomeStackParameterList>();
 
 const Home = (props: BottomTabScreenProps<TabBarParameterList, 'Home'>) => {
   const networkInfo = useNetInfo();
-  console.log('Inside Home 1');
-  console.log(networkInfo);
-  console.log(!networkInfo);
   if (networkInfo.isConnected || !networkInfo) {
-    console.log('Inside Home 2');
     return (
       <HomeStack.Navigator screenOptions={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
         <HomeStack.Screen name="HomePage" component={HomePage} />
@@ -39,7 +35,6 @@ const Home = (props: BottomTabScreenProps<TabBarParameterList, 'Home'>) => {
       </HomeStack.Navigator>
     );
   } else {
-    console.log('No Network wws');
     return <Offline />;
   }
 };

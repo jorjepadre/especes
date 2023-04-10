@@ -27,6 +27,7 @@ export const useEthGasFee = () => {
 export default {
   generateMnemonic: async () => bip39.generateMnemonic(),
   generateKeypairs: async (mnemonic: string) => {
+    console.log('generating new keypairs');
     const seedBuffer = hdkey.fromMasterSeed(bip39.mnemonicToSeedSync(mnemonic));
     let path = "m/44'/60'/0'/0/";
     const accounts = [];
@@ -34,6 +35,7 @@ export default {
       let wallet = seedBuffer.derivePath(path + i).getWallet();
       accounts.push({ pri: wallet.getPrivateKey().toString('hex'), pub: '0x' + wallet.getAddress().toString('hex') });
     }
+    console.log('Accounts: ', accounts);
     return accounts;
   },
 };

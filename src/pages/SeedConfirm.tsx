@@ -32,6 +32,9 @@ const SeedConfirm = (props: StackScreenProps<AppStackParameterList, 'SeedConfirm
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
+        <View style={styles.title}>
+          <Text style={typography.title1}>Confirm Seed</Text>
+        </View>
         <View style={styles.elemContainer}>
           <Text style={typography.title1}>Confirm your Secret Backup Phrase</Text>
         </View>
@@ -102,23 +105,31 @@ const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
     backgroundColor: '#1c1c1c',
+    alignItems: 'center',
   },
-  container: {
-    marginTop: screenHeight * 0.05,
+  container: {},
+  title: {
+    alignItems: 'center',
+    padding: screenHeight * 0.03,
+    backgroundColor: '#9b924d',
+    borderBottomEndRadius: 5,
+    borderBottomStartRadius: 5,
   },
   elemContainer: {
+    alignItems: 'center',
     marginTop: screenHeight * 0.03,
     marginLeft: screenWidth * 0.075,
     marginRight: screenWidth * 0.07,
   },
   wordsContainer: {
-    marginTop: screenHeight * 0.03,
-    marginLeft: screenWidth * 0.075,
-    marginRight: screenWidth * 0.07,
+    alignItems: 'center',
+    marginVertical: screenHeight * 0.05,
+    marginHorizontal: screenWidth * 0.12,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   wordButton: {
+    alignItems: 'center',
     paddingHorizontal: 20,
     borderColor: '#E0E0E0',
     borderWidth: 1,
@@ -147,6 +158,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
   },
   seedBox: {
+    alignItems: 'center',
     width: '100%',
     height: screenHeight * 0.2,
     borderWidth: 1,

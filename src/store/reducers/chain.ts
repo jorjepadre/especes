@@ -62,9 +62,7 @@ export const chainSlice = createSlice({
       state[state.type].mnemonic = action.payload;
     },
 
-    resetChain: () => {
-      initialState;
-    },
+    resetChain: () => initialState,
   },
 });
 

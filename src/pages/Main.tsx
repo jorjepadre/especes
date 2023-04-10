@@ -1,7 +1,7 @@
 import { CardStyleInterpolators, StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { Platform } from 'react-native';
 
-import AccountInfo from './AccountInfo';
+import AccountInfo from './AccountsInfo';
 import TabBar from './TabBar';
 import { AppStackParameterList } from '../app';
 
@@ -21,7 +21,6 @@ const Main = (props: StackScreenProps<AppStackParameterList, 'Main'>) => {
     gestureResponseDistance: 1000,
     gestureEnabled: true,
   };
-  console.log('Inside Main');
 
   return (
     <Stack.Navigator id="MainStack">

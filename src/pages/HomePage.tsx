@@ -9,7 +9,6 @@ import { NavigationProp, useFocusEffect } from '@react-navigation/native';
 import RateTimer from '../components/RateTimer';
 
 const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) => {
-  console.log('Inside HomePage');
   const eth_logo = require('../assets/icons/eth_logo.png');
   const sol_logo = require('../assets/icons/sol_logo.png');
   const other_logo = require('../assets/icons/icon2.png');

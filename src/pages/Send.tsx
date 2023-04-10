@@ -40,21 +40,16 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
           </View>
         </View>
 
-        <View style={{ marginBottom: '5%' }}>
-          <Text style={typography.title2}>Recipient Address</Text>
-          <InputField state={address} dispatch={addressDispatch} placeholder={'Recipient Address'}>
-            <TouchableOpacity
-              onPress={async () => {
-                // const permission = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
-                // console.log(permission);
-                // const result = await request(permission);
-                // console.log(result);
-                // if (result === RESULTS.GRANTED)
-                props.navigation.navigate('Scan', props.route.params);
-              }}>
-              <Image source={require('../assets/icons/icon2.png')} style={{ width: screenWidth * 0.07, height: screenHeight * 0.07 }} />
-            </TouchableOpacity>
-          </InputField>
+        <View style={{ marginVertical: '5%', alignItems: 'center' }}>
+          <Text style={{ ...typography.title2 }}>Scan QR Code To Send</Text>
+          <TouchableOpacity
+            onPress={async () => {
+              const permission = Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
+              const result = await request(permission);
+              if (result === RESULTS.GRANTED) props.navigation.navigate('Scan', props.route.params);
+            }}>
+            <Image source={require('../assets/icons/qr.png')} style={{ tintColor: '#9b924d' }} />
+          </TouchableOpacity>
         </View>
       </View>
     </DismissKeyboardView>
@@ -64,7 +59,6 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c1c1c',
     paddingHorizontal: '5%',
     paddingTop: '10%',
   },

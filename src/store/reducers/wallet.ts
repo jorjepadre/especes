@@ -22,9 +22,7 @@ export const walletSlice = createSlice({
       state.password = action.payload;
     },
 
-    resetWallet: () => {
-      initialState;
-    },
+    resetWallet: () => initialState,
 
     // Account Related
     addAccount: (state, action) => {
