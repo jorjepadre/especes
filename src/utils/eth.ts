@@ -24,6 +24,10 @@ export const useEthGasFee = () => {
   return fee;
 };
 
+export const isEthAddressValid = (address: string) => {
+  return web3.utils.isAddress(address.trim());
+};
+
 export default {
   generateMnemonic: async () => bip39.generateMnemonic(),
   generateKeypairs: async (mnemonic: string) => {

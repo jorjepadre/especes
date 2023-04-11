@@ -1,28 +1,34 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 import { HomeStackParameterList } from './Home';
-import { useEthGasFee } from '../utils/eth';
+import { isEthAddressValid, useEthConnection, useEthGasFee } from '../utils/eth';
 import { useEffect } from 'react';
 import InputField, { InputActions, useInputReducer } from '../components/InputField';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import { fontScale, screenHeight, screenWidth, typography } from '../assets';
 import { PERMISSIONS, request, RESULTS } from 'react-native-permissions';
+import store from '../store';
+import Button from '../components/Button';
+import { isSolAddressValid, useSolConnection, useSolGasFee } from '../utils/sol';
+import { useSelector } from 'react-redux';
+import { getAccount, useAccount } from '../utils/hooks';
 
 const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
   const { tokenData, balance, rate } = props.route.params;
-  console.log('wws');
-  console.log('wws', props.route.params);
-
-  const [amount, amountDispatch] = useInputReducer();
-  const [description, descriptionDispatch] = useInputReducer();
-  const [address, addressDispatch] = useInputReducer(props.route.params.address);
-
-  //   const fee = tokenData.ticker === 'ETH' ? useEthGasFee : useSolGasFee;
-  const fee = useEthGasFee();
   useEffect(() => {
     addressDispatch({ type: InputActions.SET_VALUE, payload: props.route.params.address ?? '' });
   }, [props.route.params]);
-  console.log('AU');
+
+  const [amount, amountDispatch] = useInputReducer();
+  const [address, addressDispatch] = useInputReducer(props.route.params.address);
+
+  const account = useAccount();
+  const fee = tokenData.ticker === 'ETH' ? useEthGasFee() : useSolGasFee(address.value, +amount.value);
+
+  const isAddressValid = (address: string) => {
+    if (tokenData.ticker === 'ETH') return isEthAddressValid(address);
+    else return isSolAddressValid(address);
+  };
 
   return (
     <DismissKeyboardView>
@@ -34,7 +40,11 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
         <View style={styles.assets}>
           <Text style={typography.title2}>Balance</Text>
           <View style={styles.tokenBox}>
-            <Image source={require('../assets/icons/eth_logo.png')} style={styles.tokenLogo} />
+            {store.getState().chain.type === 'eth' ? (
+              <Image source={require('../assets/icons/eth_logo.png')} style={styles.tokenLogo} />
+            ) : (
+              <Image source={require('../assets/icons/sol_logo.png')} style={styles.tokenLogo} />
+            )}
             <View style={styles.tokenInfo}>
               <Text style={typography.title2}>{tokenData.name !== '' ? tokenData.name : tokenData.ticker}</Text>
               <Text style={typography.title3}>{(balance ?? '') + ' ' + tokenData.ticker}</Text>
@@ -43,7 +53,7 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
           </View>
         </View>
 
-        <View style={{ marginVertical: '5%', alignItems: 'center' }}>
+        <View style={{ alignItems: 'center' }}>
           <Text style={{ ...typography.title2 }}>Scan QR Code To Send</Text>
           <TouchableOpacity
             onPress={async () => {
@@ -57,6 +67,45 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
             <Image source={require('../assets/icons/qr.png')} style={{ tintColor: '#9b924d' }} />
           </TouchableOpacity>
         </View>
+
+        <View style={{ ...styles.input, marginTop: screenHeight * 0.02 }}>
+          <Text style={typography.title2}>Recipient Address</Text>
+          <InputField state={address} dispatch={addressDispatch} placeholder={'Address'} />
+        </View>
+        <View style={{ ...styles.input, marginTop: screenHeight * 0.02 }}>
+          <Text style={typography.title2}>Amount to be Sent</Text>
+          <InputField state={amount} dispatch={amountDispatch} placeholder={'0.00'} />
+        </View>
+
+        <Button
+          style={styles.button}
+          disabled={balance < +amount.value + +(fee ?? 0) || +amount.value < 0.01}
+          onPress={() => {
+            // On top of this, there goes try catch that checks if address is valid and dispatches in catch
+            if (+amount.value === 0 || address.value.trim() === '') {
+              if (+amount.value === 0)
+                amountDispatch({
+                  type: InputActions.SET_ERROR,
+                  payload: 'Provide the amount',
+                });
+              if (address.value.trim() === '')
+                addressDispatch({
+                  type: InputActions.SET_ERROR,
+                  payload: 'Provide the address',
+                });
+            } else {
+              if (!isAddressValid(address.value)) {
+                addressDispatch({
+                  type: InputActions.SET_ERROR,
+                  payload: 'Invalid Address',
+                });
+              } else {
+                props.navigation.navigate('SendConfirm', { tokenData, amount: +amount.value, fee: +fee!, address: address.value.trim() });
+              }
+            }
+          }}>
+          {balance < +amount.value + +(fee ?? 0) || +amount.value < 0.01 ? 'Not enough funds' : 'Send'}
+        </Button>
       </View>
     </DismissKeyboardView>
   );
@@ -121,6 +170,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     bottom: '5%',
+  },
+
+  input: {
+    marginBottom: screenHeight * 0.01,
+    paddingHorizontal: screenWidth * 0.05,
+    paddingVertical: screenHeight * 0.01,
   },
 });
 

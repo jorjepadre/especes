@@ -48,7 +48,7 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
   useEffect(() => {
     const interval = setInterval(() => {
       fetchBalances();
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [account, tokenList]);
 
@@ -67,13 +67,12 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
 
     useEffect(
       useCallback(() => {
-        console.log(props.token_id);
         const rateApiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${props.token_id}&vs_currencies=usd`;
         fetch(rateApiUrl).then((res) => res.json().then((res) => setRate(res[props.token_id].usd)));
         let interval = setInterval(async () => {
           const response = await fetch(rateApiUrl);
           setRate((await response.json())[props.token_id].usd);
-        }, 20000);
+        }, 10000);
         const unsubscribe = props.navigation.addListener('blur', () => {
           clearInterval(interval);
         });

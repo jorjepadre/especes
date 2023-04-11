@@ -9,13 +9,14 @@ import HomePage from './HomePage';
 import Receive from './Receive';
 import Send from './Send';
 import Scan from './Scan';
+import SendConfirm from './SendConfirm';
 
 export type HomeStackParameterList = {
   HomePage: undefined;
   Send: { tokenData: TokenData; balance: number; rate: number; address?: string };
   Scan: { tokenData: TokenData; balance: number; rate: number; address?: string };
   // QRConfirm: { tokenData: TokenData; balance: number; SOLRate: number; SOLBalance: number; address: string; barcode: string };
-  // SendConfirm: { tokenData: TokenData; amount: string; description: string; address: string };
+  SendConfirm: { tokenData: TokenData; amount: number; fee: number; address: string };
   Receive: { tokenData: TokenData };
 };
 
@@ -30,8 +31,8 @@ const Home = (props: BottomTabScreenProps<TabBarParameterList, 'Home'>) => {
         <HomeStack.Screen name="Receive" component={Receive} />
         <HomeStack.Screen name="Send" component={Send} />
         <HomeStack.Screen name="Scan" component={Scan} />
-        {/* <HomeStack.Screen name="SendConfirm" component={SendConfirm} />
-        <HomeStack.Screen name="QRConfirm" component={QRConfirm} /> */}
+        <HomeStack.Screen name="SendConfirm" component={SendConfirm} />
+        {/* <HomeStack.Screen name="QRConfirm" component={QRConfirm} /> */}
       </HomeStack.Navigator>
     );
   } else {

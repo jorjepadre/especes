@@ -1,10 +1,11 @@
-import { useRPC } from './hooks';
+import { useAccount, useRPC } from './hooks';
 import { useEffect, useState } from 'react';
 
 import * as bip39 from 'bip39';
-import { Connection, Keypair } from '@solana/web3.js';
+import { Connection, Keypair, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 import { derivePath } from 'ed25519-hd-key';
 import * as bs58 from 'bs58';
+import store from '../store';
 
 export const useSolConnection = () => {
   const rpc = useRPC();
@@ -16,18 +17,18 @@ export const usePublicKey = (pri: string) => {
   return Keypair.fromSecretKey(bs58.decode(pri)).publicKey;
 };
 
-export const useEthGasFee = () => {
-  const [fee, setFee] = useState<number>(0.01);
-  // const eth = useEthConnection();
-  // const fetchGasFee = () => eth.getGasPrice().then((price) => setFee(+price / 1e18));
-  // fetchGasFee();
-  // useEffect(() => {
-  //   const interval = setInterval(fetchGasFee, 5e3);
-  //   return () => clearInterval(interval);
-  // }, []);
-  const sol = useSolConnection();
-
+export const useSolGasFee = async (address: string, amount: number) => {
+  let transaction = new Transaction();
+  transaction.add(SystemProgram.transfer({ fromPubkey: usePublicKey(useAccount().pri), toPubkey: new PublicKey(address), lamports: 1e9 * +amount }));
+  transaction.feePayer = usePublicKey(useAccount().pri);
+  let blockhashObj = await useSolConnection().getLatestBlockhash();
+  transaction.recentBlockhash = blockhashObj.blockhash;
+  const fee = await transaction.getEstimatedFee(useSolConnection());
   return fee;
+};
+
+export const isSolAddressValid = (address: string) => {
+  return PublicKey.isOnCurve(address.trim());
 };
 
 export default {
