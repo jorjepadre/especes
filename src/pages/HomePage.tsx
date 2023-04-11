@@ -67,6 +67,7 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
 
     useEffect(
       useCallback(() => {
+        console.log(props.token_id);
         const rateApiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${props.token_id}&vs_currencies=usd`;
         fetch(rateApiUrl).then((res) => res.json().then((res) => setRate(res[props.token_id].usd)));
         let interval = setInterval(async () => {

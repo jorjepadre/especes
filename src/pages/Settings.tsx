@@ -6,6 +6,7 @@ import SettingsPage from './SettingsPage';
 import AccountsInfo from './AccountsInfo';
 import Security from './Security';
 import Management from './Management';
+import Network from './Network';
 
 export type SettingsStackParameterList = {
   SettingsPage: undefined;
@@ -13,11 +14,8 @@ export type SettingsStackParameterList = {
   Management: undefined;
   ChangePassword: undefined;
   Network: undefined;
-  ImportFromKey: undefined;
   Register: undefined;
   Security: undefined;
-  SecurityLock: undefined;
-  SessionTimeout: undefined;
   Splash: undefined;
 };
 
@@ -30,8 +28,7 @@ const Settings = (props: BottomTabScreenProps<TabBarParameterList, 'Settings'>) 
       <Stack.Screen name="AccountsInfo" component={AccountsInfo} />
       <Stack.Screen name="Management" component={Management} />
       <Stack.Screen name="Security" component={Security} />
-      {/* <Stack.Screen name="Network" component={Network} /> */}
-      {/* <Stack.Screen name="SessionTimeout" component={SessionTimeout} /> */}
+      <Stack.Screen name="Network" component={Network} />
     </Stack.Navigator>
   );
 };
