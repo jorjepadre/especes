@@ -4,9 +4,11 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { screenWidth, screenHeight, fontScale, typography } from '../assets';
 import { useAccount, useTokenList } from '../utils/hooks';
 import { useCallback, useEffect, useState } from 'react';
-import { useEthConnection } from '../utils/eth';
 import { NavigationProp, useFocusEffect } from '@react-navigation/native';
 import RateTimer from '../components/RateTimer';
+import { useEthConnection } from '../utils/eth';
+import { usePublicKey, useSolConnection } from '../utils/sol';
+import store from '../store';
 
 const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) => {
   const eth_logo = require('../assets/icons/eth_logo.png');
@@ -20,6 +22,7 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
   const [previousBalances, setPreviousBalances] = useState<number[]>([]);
 
   const eth = useEthConnection();
+  const sol = useSolConnection();
   const fetchBalances = async () => {
     const res: number[] = [];
     for (const token of tokenList) {
@@ -28,6 +31,9 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
         res.push(+tokenBalance / 1e18);
         setBalances([...res]);
       } else {
+        const tokenBalance = await sol.getBalance(usePublicKey(account.pri));
+        res.push(tokenBalance / 1e9);
+        setBalances([...res]);
       }
     }
     setPreviousBalances(res);

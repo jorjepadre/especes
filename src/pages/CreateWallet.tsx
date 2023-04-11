@@ -14,6 +14,7 @@ import Button from '../components/Button';
 import utils from '../utils';
 import { setPassword } from '../store/reducers/wallet';
 import store from '../store';
+import { setChainType } from '../store/reducers/chain';
 
 const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWallet'>) => {
   const dispatch = useDispatch();
@@ -65,6 +66,8 @@ const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWall
 
                 if (!(accountNameError || passwordError || passwordConfirmError)) {
                   dispatch(setPassword(password.value));
+                  dispatch(setChainType(networkSelected));
+                  console.log('Network Selected: ', networkSelected);
                   const mnemonic = await utils[store.getState().chain.type!].generateMnemonic();
                   props.navigation.navigate('Seed', { accountName: accountName.value, mnemonic });
                 }

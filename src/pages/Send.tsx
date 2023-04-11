@@ -10,6 +10,8 @@ import { PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 
 const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
   const { tokenData, balance, rate } = props.route.params;
+  console.log('wws');
+  console.log('wws', props.route.params);
 
   const [amount, amountDispatch] = useInputReducer();
   const [description, descriptionDispatch] = useInputReducer();
@@ -20,6 +22,7 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
   useEffect(() => {
     addressDispatch({ type: InputActions.SET_VALUE, payload: props.route.params.address ?? '' });
   }, [props.route.params]);
+  console.log('AU');
 
   return (
     <DismissKeyboardView>

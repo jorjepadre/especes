@@ -4,7 +4,7 @@ export const BLOCKCHAIN_LIST = {
     name: 'Ethereum',
   },
   sol: {
-    rpc: 'https://burned-frosty-shard.solana-testnet.discover.quiknode.pro/20e51ea0e3d3549085c551452a4faa9cec3041db',
+    rpc: 'https://api.testnet.solana.com',
     name: 'Solana',
   },
 } as const;

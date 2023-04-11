@@ -1,39 +1,48 @@
 import { useRPC } from './hooks';
 import { useEffect, useState } from 'react';
 
-import { hdkey } from 'ethereumjs-wallet';
 import * as bip39 from 'bip39';
-import web3 from 'web3';
+import { Connection, Keypair } from '@solana/web3.js';
+import { derivePath } from 'ed25519-hd-key';
+import * as bs58 from 'bs58';
 
-export const useEthConnection = () => {
+export const useSolConnection = () => {
   const rpc = useRPC();
-  const connection = new web3.providers.HttpProvider(rpc);
-  const { eth } = new web3(connection);
-  return eth;
+  const sol = new Connection(rpc);
+  return sol;
+};
+
+export const usePublicKey = (pri: string) => {
+  return Keypair.fromSecretKey(bs58.decode(pri)).publicKey;
 };
 
 export const useEthGasFee = () => {
-  const [fee, setFee] = useState<number>();
-  const eth = useEthConnection();
-  const fetchGasFee = () => eth.getGasPrice().then((price) => setFee(+price / 1e18));
-  fetchGasFee();
-  useEffect(() => {
-    const interval = setInterval(fetchGasFee, 5e3);
-    return () => clearInterval(interval);
-  }, []);
+  const [fee, setFee] = useState<number>(0.01);
+  // const eth = useEthConnection();
+  // const fetchGasFee = () => eth.getGasPrice().then((price) => setFee(+price / 1e18));
+  // fetchGasFee();
+  // useEffect(() => {
+  //   const interval = setInterval(fetchGasFee, 5e3);
+  //   return () => clearInterval(interval);
+  // }, []);
+  const sol = useSolConnection();
+
   return fee;
 };
 
 export default {
   generateMnemonic: async () => bip39.generateMnemonic(),
   generateKeypairs: async (mnemonic: string) => {
-    const seedBuffer = hdkey.fromMasterSeed(bip39.mnemonicToSeedSync(mnemonic));
-    let path = "m/44'/60'/0'/0/";
+    console.log('generating new keypairs');
+    const seedBuffer = bip39.mnemonicToSeedSync(mnemonic);
     const accounts = [];
     for (let i = 0; i < 10; i++) {
-      let wallet = seedBuffer.derivePath(path + i).getWallet();
-      accounts.push({ pri: wallet.getPrivateKey().toString('hex'), pub: '0x' + wallet.getAddress().toString('hex') });
+      const path = `m/44'/501'/${i}'/0'`;
+      const keypair = Keypair.fromSeed(derivePath(path, seedBuffer.toString('hex')).key);
+      accounts.push({ pri: bs58.encode(keypair.secretKey), pub: keypair.publicKey.toString() });
     }
+
+    console.log('Accounts: ', accounts);
     return accounts;
   },
 };
