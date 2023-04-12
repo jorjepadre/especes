@@ -66,9 +66,7 @@ const Unlock = (props: StackScreenProps<AppStackParameterList, 'Unlock'>) => {
           <Button
             type="secondary"
             onPress={() => props.navigation.navigate('ImportWallet')}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.importText}>Import Wallet</Text>
-            </View>
+            <Text style={styles.importText}>Import Wallet</Text>
           </Button>
         </View>
       </View>
@@ -85,13 +83,11 @@ const styles = StyleSheet.create({
     padding: screenWidth * 0.08,
   },
   logo: {
-    flex: 0.6,
     width: screenWidth * 0.5,
     resizeMode: 'contain',
   },
   buttonContainer: {
     marginVertical: '5%',
-    flex: 0.3,
     justifyContent: 'space-around',
     alignItems: 'center',
   },

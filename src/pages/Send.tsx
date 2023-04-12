@@ -38,8 +38,6 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
 
   const fee = useFee(address.value, +amount.value);
 
-  // useEffect(() => console.log('Fee on send page is: ', fee), [fee]);
-
   const isAddressValid = (address: string) => {
     if (tokenData.ticker === 'ETH') return isEthAddressValid(address);
     else return isSolAddressValid(address);
@@ -71,7 +69,7 @@ const Send = (props: StackScreenProps<HomeStackParameterList, 'Send'>) => {
                 {tokenData.name !== '' ? tokenData.name : tokenData.ticker}
               </Text>
               <Text style={typography.title3}>
-                {(balance ?? '') + ' ' + tokenData.ticker}
+                {(balance.toFixed(6) ?? '') + ' ' + tokenData.ticker}
               </Text>
             </View>
             <Text style={styles.rate}>{(rate * balance).toFixed(2)} USD</Text>
@@ -170,14 +168,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: '5%',
-    paddingTop: '10%',
+    paddingTop: '7%',
   },
   tokenLogoBig: {
     width: screenHeight * 0.08,
     height: screenHeight * 0.08,
     resizeMode: 'contain',
     borderRadius: 8,
-    marginBottom: '3%',
+    // marginBottom: '3%',
   },
   header: {
     alignSelf: 'center',
@@ -218,8 +216,8 @@ const styles = StyleSheet.create({
   assets: { marginBottom: '7%' },
   button: {
     alignSelf: 'center',
-    position: 'absolute',
-    bottom: '5%',
+    // position: 'absolute',
+    // bottom: '5%',
   },
 
   input: {

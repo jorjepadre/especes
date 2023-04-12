@@ -24,10 +24,9 @@ const CreateWallet = (
 ) => {
   const dispatch = useDispatch();
 
-  const [accountName, accountNameDispatch] = useInputReducer('Copper');
-  const [password, passwordDispatch] = useInputReducer('11111111');
-  const [passwordConfirm, passwordConfirmDispatch] =
-    useInputReducer('11111111');
+  const [accountName, accountNameDispatch] = useInputReducer();
+  const [password, passwordDispatch] = useInputReducer();
+  const [passwordConfirm, passwordConfirmDispatch] = useInputReducer();
   const [networkSelected, setNetworkSelected] =
     useState<keyof typeof BLOCKCHAIN_LIST>('eth');
 
@@ -128,7 +127,7 @@ const CreateWallet = (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
   title: {
     alignItems: 'center',

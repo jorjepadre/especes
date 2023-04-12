@@ -42,7 +42,7 @@ const Header = () => {
                   );
                 }}>
                 <Text style={{ color: '#ffffff' }}>
-                  {pub.slice(0, 6) + '. . .' + pub?.slice(-6)}
+                  {pub.slice(0, 6) + ' ... ' + pub?.slice(-6)}
                 </Text>
               </TouchableOpacity>
             </View>

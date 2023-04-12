@@ -1,6 +1,6 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { TabBarParameterList } from './TabBar';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { typography, screenHeight } from '../assets';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,26 @@ const TxRecord = (props: Tx) => (
       borderRadius: 8,
       borderColor: '#9b924d',
     }}>
-    {Object.entries(props).map(([key, value]) => (
+    <Text style={{ color: '#ffffff' }}></Text>
+    <Text style={{ color: '#ffffff' }}>
+      Sent at:{' '}
+      {[
+        new Date(props.blockTime * 1e3).toLocaleDateString(),
+        new Date(props.blockTime * 1e3).toLocaleTimeString(),
+      ].join(' ')}
+    </Text>
+
+    <Text style={{ color: '#ffffff' }}>
+      From: {props.source.slice(0, 6)} ... {props.source.slice(-6)}
+    </Text>
+
+    <Text style={{ color: '#ffffff' }}>
+      To: {props.destination.slice(0, 6)} ... {props.destination.slice(-6)}
+    </Text>
+
+    <Text style={{ color: '#ffffff' }}>Amount: {props.lamports / 1e9} SOL</Text>
+
+    {/* {Object.entries(props).map(([key, value]) => (
       <Text style={{ color: '#FFF' }} {...{ key }}>
         {key}:{' '}
         {key !== 'blockTime'
@@ -31,7 +50,7 @@ const TxRecord = (props: Tx) => (
               new Date(value * 1e3).toLocaleTimeString(),
             ].join(' ')}
       </Text>
-    ))}
+    ))} */}
   </View>
 );
 
@@ -52,18 +71,20 @@ const History = (
       <View style={styles.title}>
         <Text style={typography.title1}>History</Text>
       </View>
-      <FlatList
-        contentContainerStyle={{ height: '100%' }}
-        data={txs}
-        {...{ refreshing }}
-        onRefresh={async () => {
-          setRefreshing(true);
-          setTxs(await getTransactions(pub, 40));
-          setRefreshing(false);
-        }}
-        keyExtractor={({ id }) => id}
-        renderItem={({ item: tx }) => <TxRecord {...tx} />}
-      />
+      <ScrollView style={{ height: '100%' }}>
+        <FlatList
+          contentContainerStyle={{ height: '100%' }}
+          data={txs}
+          {...{ refreshing }}
+          onRefresh={async () => {
+            setRefreshing(true);
+            setTxs(await getTransactions(pub, 40));
+            setRefreshing(false);
+          }}
+          keyExtractor={({ id }) => id}
+          renderItem={({ item: tx }) => <TxRecord {...tx} />}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

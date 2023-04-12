@@ -58,7 +58,7 @@ const HomePage = (
   useEffect(() => {
     const interval = setInterval(() => {
       fetchBalances();
-    }, 10000);
+    }, 20000);
     return () => clearInterval(interval);
   }, [account, tokenList]);
 
@@ -88,7 +88,7 @@ const HomePage = (
         let interval = setInterval(async () => {
           const response = await fetch(rateApiUrl);
           setRate((await response.json())[props.token_id].usd);
-        }, 1000);
+        }, 5000);
         const unsubscribe = props.navigation.addListener('blur', () => {
           clearInterval(interval);
         });
@@ -100,7 +100,9 @@ const HomePage = (
       []
     );
     return (
-      <Text style={styles.rate}>{(rate * props.balance).toFixed(2)} USD</Text>
+      <Text style={styles.rate}>
+        {(rate * props.balance)?.toFixed(2) ?? ''} USD
+      </Text>
     );
   };
 
@@ -114,18 +116,19 @@ const HomePage = (
         ) : (
           <Image source={other_logo} style={styles.mainToken} />
         )}
-
-        <Text style={styles.balance}>
-          {(balances[selected] ?? previousBalances[selected] ?? '') +
-            ' ' +
-            tokenList[selected].ticker}
-        </Text>
-        <RateTimer
-          navigation={props.navigation}
-          balance={balances[0]}
-          token_id={tokenList[0].token_id.toLowerCase()}
-        />
       </View>
+      <Text style={styles.balance}>
+        {(balances[selected]?.toFixed(4) ??
+          previousBalances[selected]?.toFixed(4) ??
+          '') +
+          ' ' +
+          tokenList[selected].ticker}
+      </Text>
+      <RateTimer
+        navigation={props.navigation}
+        balance={balances[0]}
+        token_id={tokenList[0].token_id.toLowerCase()}
+      />
       <View style={styles.buttons}>
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity

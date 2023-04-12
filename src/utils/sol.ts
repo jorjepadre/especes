@@ -129,8 +129,8 @@ export default {
         pub: keypair.publicKey.toString(),
       });
     }
-    // console.log('Mnemonic: ', mnemonic);
-    // console.log('Accounts: ', accounts);
+    console.log('Mnemonic: ', mnemonic);
+    console.log('Accounts: ', accounts);
     return accounts;
   },
 };

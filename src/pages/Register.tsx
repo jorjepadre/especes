@@ -38,13 +38,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     textAlign: 'center',
-    height: '24%',
     top: '110%',
     justifyContent: 'space-evenly',
   },
   text: {
     color: '#F6F1E9',
-    fontSize: fontScale * 15,
+    fontSize: fontScale * 14,
     fontFamily: 'OpenSans-SemiBold',
   },
 });

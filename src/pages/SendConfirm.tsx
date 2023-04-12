@@ -21,6 +21,7 @@ const SendConfirm = (
       await sendEth(address, amount.toString(), account, connection);
     } else await sendSol(address, amount.toString(), account, connection);
   };
+  console.log(fee);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -28,28 +29,22 @@ const SendConfirm = (
       </View>
       <View>
         <View style={styles.wws}>
-          <Text style={{ ...typography.title1, ...styles.heading }}>
-            Recipient Address
-          </Text>
+          <Text style={{ color: '#FFF' }}>Recipient Address</Text>
         </View>
         <View style={styles.info}>
-          <Text>{address}</Text>
+          <Text style={{ color: '#FFF' }}>{address}</Text>
         </View>
         <View style={styles.wws}>
-          <Text style={{ ...typography.title1, ...styles.heading }}>
-            Amount to be Sent
-          </Text>
+          <Text style={{ color: '#FFF' }}>Amount to be Sent</Text>
         </View>
         <View style={styles.info}>
-          <Text>{amount}</Text>
+          <Text style={{ color: '#FFF' }}>{amount}</Text>
         </View>
         <View style={styles.wws}>
-          <Text style={{ ...typography.title1, ...styles.heading }}>
-            Gas Fee
-          </Text>
+          <Text style={{ color: '#FFF' }}>Gas Fee</Text>
         </View>
         <View style={styles.info}>
-          <Text>{fee}</Text>
+          <Text style={{ color: '#FFF' }}>{fee}</Text>
         </View>
       </View>
 
@@ -112,7 +107,9 @@ const styles = StyleSheet.create({
   tokenInfo: {
     marginLeft: '4%',
   },
-  heading: {},
+  heading: {
+    color: '#ffffff',
+  },
   info: {
     fontFamily: 'OpenSans-Bold',
     marginHorizontal: screenWidth * 0.02,

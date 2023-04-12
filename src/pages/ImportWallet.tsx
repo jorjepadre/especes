@@ -23,13 +23,10 @@ const ImportWallet = (
 ) => {
   const dispatch = useDispatch();
 
-  const [accountName, accountNameDispatch] = useInputReducer('Copper');
-  const [password, passwordDispatch] = useInputReducer('11111111');
-  const [passwordConfirm, passwordConfirmDispatch] =
-    useInputReducer('11111111');
-  const [seed, seedDispatch] = useInputReducer(
-    'garden ship gap there process same opera explain insane love wealth reform'
-  );
+  const [accountName, accountNameDispatch] = useInputReducer();
+  const [password, passwordDispatch] = useInputReducer();
+  const [passwordConfirm, passwordConfirmDispatch] = useInputReducer();
+  const [seed, seedDispatch] = useInputReducer();
   const [networkSelected, setNetworkSelected] =
     useState<keyof typeof BLOCKCHAIN_LIST>('eth');
 
@@ -47,7 +44,6 @@ const ImportWallet = (
             placeholder={'Account Name'}
           />
         </View>
-
         <View style={styles.input}>
           <Text style={typography.title2}>Password (Minimum 8 Characters)</Text>
           <InputField
@@ -71,16 +67,16 @@ const ImportWallet = (
         <View style={styles.input}>
           <Text style={typography.title2}>Secret Backup Phrase</Text>
           <InputField
+            multiline
             state={seed}
             style={{
-              height: screenHeight * 0.07,
               textAlignVertical: 'top',
               flexDirection: 'row',
               color: '#ffffff',
             }}
-            contentContainerStyle={{ height: screenHeight * 0.07 }}
+            contentContainerStyle={{ height: screenHeight * 0.12 }}
             dispatch={seedDispatch}
-            placeholder="Paste or Insert Mnemonic Phrase separated with spaces"
+            placeholder="Paste or Insert Mnemonic Phrase separated with space"
           />
         </View>
 

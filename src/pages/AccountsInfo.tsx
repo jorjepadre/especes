@@ -78,7 +78,7 @@ const AccountsInfo = (
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.title}>
-          <Text style={typography.title1}>Settings</Text>
+          <Text style={typography.title1}>Accounts</Text>
         </View>
       </SafeAreaView>
 
