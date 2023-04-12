@@ -1,4 +1,8 @@
-import { CardStyleInterpolators, StackScreenProps, createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  StackScreenProps,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import { Platform } from 'react-native';
 
 import AccountInfo from './AccountsInfo';
@@ -16,7 +20,10 @@ const Main = (props: StackScreenProps<AppStackParameterList, 'Main'>) => {
   const options = {
     headerShown: false,
     presentation: 'modal',
-    cardStyleInterpolator: Platform.OS === 'ios' ? undefined : CardStyleInterpolators.forModalPresentationIOS,
+    cardStyleInterpolator:
+      Platform.OS === 'ios'
+        ? undefined
+        : CardStyleInterpolators.forModalPresentationIOS,
     detachPreviousScreen: false,
     gestureResponseDistance: 1000,
     gestureEnabled: true,
@@ -24,7 +31,11 @@ const Main = (props: StackScreenProps<AppStackParameterList, 'Main'>) => {
 
   return (
     <Stack.Navigator id="MainStack">
-      <Stack.Screen name="TabBar" component={TabBar} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="TabBar"
+        component={TabBar}
+        options={{ headerShown: false }}
+      />
       {/* <Stack.Screen name="AccountInfo" component={AccountInfo} options={{ ...options, gestureResponseDistance: undefined }} /> */}
     </Stack.Navigator>
   );

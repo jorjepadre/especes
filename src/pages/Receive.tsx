@@ -5,7 +5,9 @@ import { useAccount } from '../utils/hooks';
 import { fontScale, screenHeight } from '../assets';
 import QRCode from 'react-native-qrcode-svg';
 
-const Receive = (props: StackScreenProps<HomeStackParameterList, 'Receive'>) => {
+const Receive = (
+  props: StackScreenProps<HomeStackParameterList, 'Receive'>
+) => {
   const { tokenData } = props.route.params;
   const { pub } = useAccount();
   return (
@@ -13,7 +15,16 @@ const Receive = (props: StackScreenProps<HomeStackParameterList, 'Receive'>) => 
       <View style={styles.header}>
         <Text style={styles.headText}>Receive {tokenData.token_id}</Text>
       </View>
-      <View style={styles.QRCode}>{pub ? <QRCode value={JSON.stringify({ address: pub })} size={screenHeight * 0.25} /> : <ActivityIndicator size={'large'} color={'#01A0C7'} />}</View>
+      <View style={styles.QRCode}>
+        {pub ? (
+          <QRCode
+            value={JSON.stringify({ address: pub })}
+            size={screenHeight * 0.25}
+          />
+        ) : (
+          <ActivityIndicator size={'large'} color={'#01A0C7'} />
+        )}
+      </View>
     </View>
   );
 };

@@ -1,17 +1,30 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingsStackParameterList } from './Settings';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { getAccount, useAccount } from '../utils/hooks';
 import store, { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { fontScale, screenHeight, screenWidth, typography } from '../assets';
 import Button from '../components/Button';
 import InputField, { useInputReducer } from '../components/InputField';
-import { addAccount, changeAccountName, removeAccount, setSelectedAccount } from '../store/reducers/wallet';
+import {
+  addAccount,
+  changeAccountName,
+  removeAccount,
+  setSelectedAccount,
+} from '../store/reducers/wallet';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'AccountsInfo'>) => {
+const AccountsInfo = (
+  props: StackScreenProps<SettingsStackParameterList, 'AccountsInfo'>
+) => {
   const { name, nonce, pub, pri } = useAccount();
   const [changeAccountNameFlag, setChangeAccountNameFlag] = useState(false);
   const [accountName, accountNameDispatch] = useInputReducer();
@@ -22,7 +35,9 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
   let accountArray: any[] = [];
   const [accounts, setAccounts] = useState(accountArray);
   const accountNames = useSelector((state: RootState) => state.wallet.accounts);
-  const selected = useSelector((state: RootState) => state.wallet.selectedAccount);
+  const selected = useSelector(
+    (state: RootState) => state.wallet.selectedAccount
+  );
 
   const dispatch = useDispatch();
 
@@ -36,7 +51,10 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
 
   const AccountItem = ({ index, item }: { index: number; item: any }) => (
     <TouchableOpacity
-      style={{ ...styles.listTouchable, backgroundColor: selected === index ? '#9b924d' : '#4D4D4D' }}
+      style={{
+        ...styles.listTouchable,
+        backgroundColor: selected === index ? '#9b924d' : '#4D4D4D',
+      }}
       onPress={() => {
         dispatch(setSelectedAccount(index));
       }}>
@@ -45,7 +63,12 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
           <Text numberOfLines={1} style={[typography.title2]}>
             {accountNames[index]?.name}
           </Text>
-          <Text style={selected === index ? typography.title1 : typography.title3}>{item.pub.toString().slice(0, 6) + '...' + item.pub.toString().slice(-6)}</Text>
+          <Text
+            style={selected === index ? typography.title1 : typography.title3}>
+            {item.pub.toString().slice(0, 6) +
+              '...' +
+              item.pub.toString().slice(-6)}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -66,16 +89,27 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
               onPress={() => {
                 setChangeAccountNameFlag(true);
               }}>
-              <Text style={typography.title1}>{store.getState().wallet.accounts[store.getState().wallet.selectedAccount].name}</Text>
+              <Text style={typography.title1}>
+                {store.getState().wallet.accounts[selected].name}
+              </Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View>
-            <InputField state={accountName} dispatch={accountNameDispatch} placeholder={'Insert Account Name'} />
+            <InputField
+              state={accountName}
+              dispatch={accountNameDispatch}
+              placeholder={'Insert Account Name'}
+            />
             <Button
               onPress={() => {
                 if (accountName.value.trim() !== '') {
-                  dispatch(changeAccountName({ name: accountName.value, index: store.getState().wallet.selectedAccount }));
+                  dispatch(
+                    changeAccountName({
+                      name: accountName.value,
+                      index: selected,
+                    })
+                  );
                   setChangeAccountNameFlag(false);
                 }
               }}>
@@ -86,7 +120,12 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
       </View>
 
       <View>
-        <FlatList keyExtractor={(item) => item.pub.toString()} showsVerticalScrollIndicator={false} data={accounts} renderItem={AccountItem} />
+        <FlatList
+          keyExtractor={(item) => item.pub.toString()}
+          showsVerticalScrollIndicator={false}
+          data={accounts}
+          renderItem={AccountItem}
+        />
         <View style={{ alignItems: 'center' }}>
           <Button
             type="primary"
@@ -96,7 +135,9 @@ const AccountsInfo = (props: StackScreenProps<SettingsStackParameterList, 'Accou
                 const usedAccounts = accounts.map((account) => account.nonce);
                 for (let i = 0; i < 10; i++) {
                   if (!usedAccounts.includes(i)) {
-                    dispatch(addAccount({ name: `Account ${i + 1}`, nonce: i }));
+                    dispatch(
+                      addAccount({ name: `Account ${i + 1}`, nonce: i })
+                    );
                     break;
                   }
                 }

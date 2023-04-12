@@ -1,5 +1,15 @@
 import React, { useReducer } from 'react';
-import { Image, StyleProp, StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native';
+import {
+  Image,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { fontScale, screenHeight, screenWidth } from '../assets';
 
 export enum InputActions {
@@ -51,7 +61,8 @@ const inputReducer = (
   }
 };
 
-export const useInputReducer = (value?: string) => useReducer(inputReducer, { ...inputInitialState, value: value ?? '' });
+export const useInputReducer = (value?: string) =>
+  useReducer(inputReducer, { ...inputInitialState, value: value ?? '' });
 
 type InputFieldProps = {
   state: InputState;
@@ -66,7 +77,15 @@ const InputField = (props: InputFieldProps) => {
   const { value, errorMessage, visible } = props.state;
   return (
     <View>
-      <View style={[styles.textInputField, props.contentContainerStyle, errorMessage !== '' && { borderColor: '#b54747', backgroundColor: '#451919' }]}>
+      <View
+        style={[
+          styles.textInputField,
+          props.contentContainerStyle,
+          errorMessage !== '' && {
+            borderColor: '#b54747',
+            backgroundColor: '#451919',
+          },
+        ]}>
         <TextInput
           style={[styles.textInput, props.style]}
           placeholderTextColor="#989898"
@@ -74,12 +93,27 @@ const InputField = (props: InputFieldProps) => {
           {...{ ...props, children: undefined }}
           value={value}
           secureTextEntry={props.secureTextEntry && !visible}
-          onChangeText={(text) => props.dispatch({ type: InputActions.SET_VALUE, payload: text })}
+          onChangeText={(text) =>
+            props.dispatch({ type: InputActions.SET_VALUE, payload: text })
+          }
         />
         {props.children}
         {props.secureTextEntry && (
-          <TouchableOpacity onPress={() => props.dispatch({ type: PasswordActions.CHANGE_VISIBILITY })}>
-            {!visible ? <Image style={styles.showHideImage} source={require('../assets/icons/hide.png')} /> : <Image style={styles.showHideImage} source={require('../assets/icons/show.png')} />}
+          <TouchableOpacity
+            onPress={() =>
+              props.dispatch({ type: PasswordActions.CHANGE_VISIBILITY })
+            }>
+            {!visible ? (
+              <Image
+                style={styles.showHideImage}
+                source={require('../assets/icons/hide.png')}
+              />
+            ) : (
+              <Image
+                style={styles.showHideImage}
+                source={require('../assets/icons/show.png')}
+              />
+            )}
           </TouchableOpacity>
         )}
       </View>

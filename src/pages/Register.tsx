@@ -4,15 +4,19 @@ import { Image, Text, View, StyleSheet } from 'react-native';
 import Button from '../components/Button';
 import { fontScale } from '../assets';
 
-const Register = (props: StackScreenProps<AppStackParameterList, 'Register'>) => {
+const Register = (
+  props: StackScreenProps<AppStackParameterList, 'Register'>
+) => {
   return (
     <View style={styles.container}>
-      <Image source={require('@assets/icons/icon.png')} style={styles.logo} />
+      <Image source={require('@assets/icons/icon2.png')} style={styles.logo} />
       <View style={styles.items}>
         <Button onPress={() => props.navigation.navigate('CreateWallet')}>
           <Text style={styles.text}>Create New Wallet</Text>
         </Button>
-        <Button onPress={() => props.navigation.navigate('ImportWallet')} type="secondary">
+        <Button
+          onPress={() => props.navigation.navigate('ImportWallet')}
+          type="secondary">
           <Text style={styles.text}>Import Existing Wallet</Text>
         </Button>
       </View>

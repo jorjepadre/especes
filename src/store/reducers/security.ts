@@ -32,5 +32,10 @@ export const securitySlice = createSlice({
   },
 });
 
-export const { setTimeLoggedOut, setSessionTimeout, setBiometricsAllowed, resetSecuritySettings } = securitySlice.actions;
+export const {
+  setTimeLoggedOut,
+  setSessionTimeout,
+  setBiometricsAllowed,
+  resetSecuritySettings,
+} = securitySlice.actions;
 export default securitySlice.reducer;

@@ -66,5 +66,6 @@ export const chainSlice = createSlice({
   },
 });
 
-export const { addToken, setAccounts, setChainType, setMnemonic, resetChain } = chainSlice.actions;
+export const { addToken, setAccounts, setChainType, setMnemonic, resetChain } =
+  chainSlice.actions;
 export default chainSlice.reducer;

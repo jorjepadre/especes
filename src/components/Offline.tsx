@@ -4,7 +4,10 @@ import { fontScale, screenHeight, screenWidth } from '../assets';
 const Offline = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/icons/offline.png')} style={styles.image} />
+      <Image
+        source={require('../assets/icons/offline.png')}
+        style={styles.image}
+      />
       <Text style={styles.text}>No Internet Connection</Text>
     </View>
   );

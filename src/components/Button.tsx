@@ -1,9 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  ViewStyle,
+} from 'react-native';
 
 import { fontScale, screenHeight, screenWidth } from '../assets';
 
-const Button = ({ type = 'primary', ...props }: TouchableOpacityProps & { type?: 'primary' | 'secondary' | 'outline' | 'confirm' | 'settingsButton' }) => {
+const Button = ({
+  type = 'primary',
+  ...props
+}: TouchableOpacityProps & {
+  type?: 'primary' | 'secondary' | 'outline' | 'confirm' | 'settingsButton';
+}) => {
   let buttonStyle, textStyle;
   if (type === 'primary') {
     buttonStyle = styles.buttonPrimary;
@@ -22,8 +33,21 @@ const Button = ({ type = 'primary', ...props }: TouchableOpacityProps & { type?:
     textStyle = styles.textSettings;
   }
   return (
-    <TouchableOpacity {...props} style={[props.disabled ? styles.buttonDisabled : buttonStyle, props.style]} onPress={props.onPress} disabled={props.disabled}>
-      {typeof props.children === 'string' ? <Text style={props.disabled ? styles.textDisabled : textStyle}>{props.children}</Text> : props.children}
+    <TouchableOpacity
+      {...props}
+      style={[
+        props.disabled ? styles.buttonDisabled : buttonStyle,
+        props.style,
+      ]}
+      onPress={props.onPress}
+      disabled={props.disabled}>
+      {typeof props.children === 'string' ? (
+        <Text style={props.disabled ? styles.textDisabled : textStyle}>
+          {props.children}
+        </Text>
+      ) : (
+        props.children
+      )}
     </TouchableOpacity>
   );
 };

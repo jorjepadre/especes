@@ -1,6 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { AppStackParameterList } from '../app';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useState } from 'react';
 import { fontScale, screenHeight, screenWidth, typography } from '../assets';
 import { useDispatch } from 'react-redux';
@@ -8,7 +14,9 @@ import Button from '../components/Button';
 import { addAccount } from '../store/reducers/wallet';
 import { setMnemonic } from '../store/reducers/chain';
 
-const SeedConfirm = (props: StackScreenProps<AppStackParameterList, 'SeedConfirm'>) => {
+const SeedConfirm = (
+  props: StackScreenProps<AppStackParameterList, 'SeedConfirm'>
+) => {
   const dispatch = useDispatch();
   const mix = (vector: unknown[]) => {
     for (let i = vector.length - 1; i > 0; --i) {
@@ -21,7 +29,9 @@ const SeedConfirm = (props: StackScreenProps<AppStackParameterList, 'SeedConfirm
   };
 
   const { mnemonic: seed } = props.route.params;
-  const seedProcessed = mix(seed.split(' ').map((e: string) => ({ word: e, selected: false }))) as { word: string; selected: boolean }[];
+  const seedProcessed = mix(
+    seed.split(' ').map((e: string) => ({ word: e, selected: false }))
+  ) as { word: string; selected: boolean }[];
 
   const [chosen, setChosen] = useState<string[]>([]);
   const [words, setWords] = useState(seedProcessed);
@@ -36,22 +46,38 @@ const SeedConfirm = (props: StackScreenProps<AppStackParameterList, 'SeedConfirm
           <Text style={typography.title1}>Confirm Seed</Text>
         </View>
         <View style={styles.elemContainer}>
-          <Text style={typography.title1}>Confirm your Secret Backup Phrase</Text>
+          <Text style={typography.title1}>
+            Confirm your Secret Backup Phrase
+          </Text>
         </View>
         <View style={styles.elemContainer}>
-          <Text style={typography.title2}>Please select each phrase in order to make sure it is correct.</Text>
+          <Text style={typography.title2}>
+            Please select each phrase in order to make sure it is correct.
+          </Text>
         </View>
         <View style={styles.elemContainer}>
-          <View style={[styles.seedBox, isWrong ? { borderColor: '#451919' } : { borderColor: '#9b924d' }]}>
-            <Text style={[typography.title2, { padding: screenWidth * 0.03 }]}>{chosen.join(' ')}</Text>
+          <View
+            style={[
+              styles.seedBox,
+              isWrong ? { borderColor: '#451919' } : { borderColor: '#9b924d' },
+            ]}>
+            <Text style={[typography.title2, { padding: screenWidth * 0.03 }]}>
+              {chosen.join(' ')}
+            </Text>
           </View>
-          {isWrong && <Text style={styles.error}>Wrong Secret Backup Phrase. Please, try again.</Text>}
+          {isWrong && (
+            <Text style={styles.error}>
+              Wrong Secret Backup Phrase. Please, try again.
+            </Text>
+          )}
         </View>
         <View style={[styles.wordsContainer]}>
           {words.map((value, index) => (
             <TouchableOpacity
               key={index}
-              style={value.selected ? styles.wordButtonActive : styles.wordButton}
+              style={
+                value.selected ? styles.wordButtonActive : styles.wordButton
+              }
               onPress={() => {
                 const wordFlagList = [...words];
                 wordFlagList[index].selected = !wordFlagList[index].selected;
@@ -63,11 +89,19 @@ const SeedConfirm = (props: StackScreenProps<AppStackParameterList, 'SeedConfirm
                   wordChosenList.push(words[index].word);
                 } else {
                   setWordsLeft((prev) => prev + 1);
-                  wordChosenList.splice(wordChosenList.indexOf(words[index].word), 1);
+                  wordChosenList.splice(
+                    wordChosenList.indexOf(words[index].word),
+                    1
+                  );
                 }
                 setChosen(wordChosenList);
               }}>
-              <Text style={value.selected ? styles.wordTextActive : styles.wordText}>{value.word}</Text>
+              <Text
+                style={
+                  value.selected ? styles.wordTextActive : styles.wordText
+                }>
+                {value.word}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -91,7 +125,12 @@ const SeedConfirm = (props: StackScreenProps<AppStackParameterList, 'SeedConfirm
           disabled={!isEqual}
           onPress={() => {
             dispatch(setMnemonic(seed));
-            dispatch(addAccount({ name: props.route.params.accountName.trim(), nonce: 0 }));
+            dispatch(
+              addAccount({
+                name: props.route.params.accountName.trim(),
+                nonce: 0,
+              })
+            );
             props.navigation.reset({ index: 0, routes: [{ name: 'Splash' }] });
           }}>
           Continue

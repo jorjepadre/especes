@@ -1,5 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Clipboard } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Clipboard,
+} from 'react-native';
 import { AppStackParameterList } from '../app';
 import { useDispatch } from 'react-redux';
 import { screenHeight, screenWidth, typography } from '../assets';
@@ -23,8 +30,11 @@ const Seed = (props: StackScreenProps<AppStackParameterList, 'Seed'>) => {
           <TouchableOpacity
             onPress={async () => {
               Clipboard.setString(mnemonic);
-              if (props.route.params) dispatch(showPopup('Secret Backup Phrase has been copied!'));
-              dispatch(addTimeout(setTimeout(() => dispatch(countDown()), 2000)));
+              if (props.route.params)
+                dispatch(showPopup('Secret Backup Phrase has been copied!'));
+              dispatch(
+                addTimeout(setTimeout(() => dispatch(countDown()), 2000))
+              );
             }}>
             <View>
               <Text style={{ fontSize: 16, color: '#ffffff' }}>{mnemonic}</Text>
@@ -33,10 +43,19 @@ const Seed = (props: StackScreenProps<AppStackParameterList, 'Seed'>) => {
         </View>
 
         <View>
-          <Text style={styles.guides}>1. Click on the mnemonic phrase to copy</Text>
-          <Text style={styles.guides}>2. Write down the phrase on a piece of paper and securely store it</Text>
-          <Text style={styles.guides}>3. Remember to keep the correct order of words</Text>
-          <Text style={styles.guides}>4. You can use this phrase to get access to your account on any device and wallet</Text>
+          <Text style={styles.guides}>
+            1. Click on the mnemonic phrase to copy
+          </Text>
+          <Text style={styles.guides}>
+            2. Write down the phrase on a piece of paper and securely store it
+          </Text>
+          <Text style={styles.guides}>
+            3. Remember to keep the correct order of words
+          </Text>
+          <Text style={styles.guides}>
+            4. You can use this phrase to get access to your account on any
+            device and wallet
+          </Text>
         </View>
       </View>
 
@@ -50,7 +69,11 @@ const Seed = (props: StackScreenProps<AppStackParameterList, 'Seed'>) => {
           }}>
           Remind me later
         </Button>
-        <Button type="primary" onPress={() => props.navigation.navigate('SeedConfirm', { mnemonic, accountName })}>
+        <Button
+          type="primary"
+          onPress={() =>
+            props.navigation.navigate('SeedConfirm', { mnemonic, accountName })
+          }>
           Continue
         </Button>
       </View>

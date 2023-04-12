@@ -2,9 +2,15 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
 import type { Theme } from '@react-navigation/native/src/types';
 
-export const screenHeight = 1.05 * Dimensions.get('window').height - initialWindowMetrics!.insets.top - initialWindowMetrics!.insets.bottom;
+export const screenHeight =
+  1.05 * Dimensions.get('window').height -
+  initialWindowMetrics!.insets.top -
+  initialWindowMetrics!.insets.bottom;
 
-export const screenWidth = Dimensions.get('window').width - initialWindowMetrics!.insets.left - initialWindowMetrics!.insets.right;
+export const screenWidth =
+  Dimensions.get('window').width -
+  initialWindowMetrics!.insets.left -
+  initialWindowMetrics!.insets.right;
 
 export const fontScale = screenHeight / 800;
 

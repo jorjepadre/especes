@@ -3,7 +3,10 @@ import { AppStackParameterList } from '../app';
 import Button from '../components/Button';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import InputField, { InputActions, useInputReducer } from '../components/InputField';
+import InputField, {
+  InputActions,
+  useInputReducer,
+} from '../components/InputField';
 import store from '../store';
 import { useDispatch } from 'react-redux';
 import { setTimeLoggedOut } from '../store/reducers/security';
@@ -35,8 +38,16 @@ const Unlock = (props: StackScreenProps<AppStackParameterList, 'Unlock'>) => {
   return (
     <DismissKeyboardView>
       <View style={styles.container}>
-        <Image source={require('../assets/icons/logo2.png')} style={styles.logo} />
-        <InputField secureTextEntry state={password} dispatch={passwordDispatch} placeholder={'Enter password'} />
+        <Image
+          source={require('../assets/icons/logo2.png')}
+          style={styles.logo}
+        />
+        <InputField
+          secureTextEntry
+          state={password}
+          dispatch={passwordDispatch}
+          placeholder={'Enter password'}
+        />
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => {
@@ -52,7 +63,9 @@ const Unlock = (props: StackScreenProps<AppStackParameterList, 'Unlock'>) => {
             }}>
             Unlock
           </Button>
-          <Button type="secondary" onPress={() => props.navigation.navigate('ImportWallet')}>
+          <Button
+            type="secondary"
+            onPress={() => props.navigation.navigate('ImportWallet')}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={styles.importText}>Import Wallet</Text>
             </View>

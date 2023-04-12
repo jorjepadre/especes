@@ -1,12 +1,20 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingsStackParameterList } from './Settings';
-import { Image, InteractionManager, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  InteractionManager,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Button from '../components/Button';
 import { screenHeight, screenWidth, typography } from '../assets';
 import { resetStore } from '../store';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SettingsPage = (props: StackScreenProps<SettingsStackParameterList, 'SettingsPage'>) => {
+const SettingsPage = (
+  props: StackScreenProps<SettingsStackParameterList, 'SettingsPage'>
+) => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -14,23 +22,34 @@ const SettingsPage = (props: StackScreenProps<SettingsStackParameterList, 'Setti
           <Text style={typography.title1}>Settings</Text>
         </View>
         <View style={styles.list}>
-          <Button type="settingsButton" onPress={() => props.navigation.navigate('AccountsInfo')}>
+          <Button
+            type="settingsButton"
+            onPress={() => props.navigation.navigate('AccountsInfo')}>
             Accounts Info
           </Button>
-          <Button type="settingsButton" onPress={() => props.navigation.navigate('Management')}>
+          <Button
+            type="settingsButton"
+            onPress={() => props.navigation.navigate('Management')}>
             Management
           </Button>
-          <Button type="settingsButton" onPress={() => props.navigation.navigate('Network')}>
+          <Button
+            type="settingsButton"
+            onPress={() => props.navigation.navigate('Network')}>
             Network
           </Button>
-          <Button type="settingsButton" onPress={() => props.navigation.navigate('Security')}>
+          <Button
+            type="settingsButton"
+            onPress={() => props.navigation.navigate('Security')}>
             Security
           </Button>
           <Button
             type="secondary"
             onPress={() => {
               InteractionManager.runAfterInteractions(resetStore);
-              props.navigation.reset({ index: 0, routes: [{ name: 'Register' }] });
+              props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'Register' }],
+              });
             }}>
             Logout
           </Button>

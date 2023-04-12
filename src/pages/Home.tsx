@@ -1,6 +1,9 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { TabBarParameterList } from './TabBar';
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import { Text, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { TokenData } from '../store/reducers/chain';
@@ -13,10 +16,25 @@ import SendConfirm from './SendConfirm';
 
 export type HomeStackParameterList = {
   HomePage: undefined;
-  Send: { tokenData: TokenData; balance: number; rate: number; address?: string };
-  Scan: { tokenData: TokenData; balance: number; rate: number; address?: string };
+  Send: {
+    tokenData: TokenData;
+    balance: number;
+    rate: number;
+    address?: string;
+  };
+  Scan: {
+    tokenData: TokenData;
+    balance: number;
+    rate: number;
+    address?: string;
+  };
   // QRConfirm: { tokenData: TokenData; balance: number; SOLRate: number; SOLBalance: number; address: string; barcode: string };
-  SendConfirm: { tokenData: TokenData; amount: number; fee: number; address: string };
+  SendConfirm: {
+    tokenData: TokenData;
+    amount: number;
+    fee: number;
+    address: string;
+  };
   Receive: { tokenData: TokenData };
 };
 
@@ -26,7 +44,11 @@ const Home = (props: BottomTabScreenProps<TabBarParameterList, 'Home'>) => {
   const networkInfo = useNetInfo();
   if (networkInfo.isConnected || !networkInfo) {
     return (
-      <HomeStack.Navigator screenOptions={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
+      <HomeStack.Navigator
+        screenOptions={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}>
         <HomeStack.Screen name="HomePage" component={HomePage} />
         <HomeStack.Screen name="Receive" component={Receive} />
         <HomeStack.Screen name="Send" component={Send} />

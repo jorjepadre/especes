@@ -3,8 +3,16 @@ import { screenHeight, screenWidth } from '../assets';
 
 const Watermark = () => (
   <View style={styles.watermarkContainer}>
-    <Image source={require('../assets/icons/icon2.png')} resizeMode="contain" style={{ ...styles.watermarkImage, width: screenWidth * 0.4 }} />
-    <Image source={require('../assets/icons/logo2.png')} resizeMode="contain" style={styles.watermarkImage} />
+    <Image
+      source={require('../assets/icons/icon2.png')}
+      resizeMode="contain"
+      style={{ ...styles.watermarkImage, width: screenWidth * 0.4 }}
+    />
+    <Image
+      source={require('../assets/icons/logo2.png')}
+      resizeMode="contain"
+      style={styles.watermarkImage}
+    />
   </View>
 );
 

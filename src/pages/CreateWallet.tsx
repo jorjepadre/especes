@@ -8,7 +8,10 @@ import KeyboardRemovableView from '../components/DismissKeyboardView';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, View } from 'react-native';
 import { screenHeight, screenWidth, typography } from '../assets';
-import InputField, { InputActions, useInputReducer } from '../components/InputField';
+import InputField, {
+  InputActions,
+  useInputReducer,
+} from '../components/InputField';
 import ItemSelector from '../components/ItemSelector';
 import Button from '../components/Button';
 import utils from '../utils';
@@ -16,13 +19,17 @@ import { setPassword } from '../store/reducers/wallet';
 import store from '../store';
 import { setChainType } from '../store/reducers/chain';
 
-const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWallet'>) => {
+const CreateWallet = (
+  props: StackScreenProps<AppStackParameterList, 'CreateWallet'>
+) => {
   const dispatch = useDispatch();
 
   const [accountName, accountNameDispatch] = useInputReducer('Copper');
   const [password, passwordDispatch] = useInputReducer('11111111');
-  const [passwordConfirm, passwordConfirmDispatch] = useInputReducer('11111111');
-  const [networkSelected, setNetworkSelected] = useState<keyof typeof BLOCKCHAIN_LIST>('eth');
+  const [passwordConfirm, passwordConfirmDispatch] =
+    useInputReducer('11111111');
+  const [networkSelected, setNetworkSelected] =
+    useState<keyof typeof BLOCKCHAIN_LIST>('eth');
 
   return (
     <KeyboardRemovableView>
@@ -33,22 +40,40 @@ const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWall
 
         <View style={styles.input}>
           <Text style={typography.title2}>Account Name</Text>
-          <InputField state={accountName} dispatch={accountNameDispatch} placeholder={'Account Name'} />
+          <InputField
+            state={accountName}
+            dispatch={accountNameDispatch}
+            placeholder={'Account Name'}
+          />
         </View>
 
         <View style={styles.input}>
           <Text style={typography.title2}>Password (Minimum 8 Characters)</Text>
-          <InputField secureTextEntry state={password} dispatch={passwordDispatch} placeholder={'Insert Password'} />
+          <InputField
+            secureTextEntry
+            state={password}
+            dispatch={passwordDispatch}
+            placeholder={'Insert Password'}
+          />
         </View>
 
         <View style={styles.input}>
           <Text style={typography.title2}>Confirm Password</Text>
-          <InputField secureTextEntry state={passwordConfirm} dispatch={passwordConfirmDispatch} placeholder={'Confirm Password'} />
+          <InputField
+            secureTextEntry
+            state={passwordConfirm}
+            dispatch={passwordConfirmDispatch}
+            placeholder={'Confirm Password'}
+          />
         </View>
 
         <View style={styles.input}>
           <Text style={typography.title2}>Select Network</Text>
-          <ItemSelector data={['eth', 'sol']} selected={networkSelected} setSelected={setNetworkSelected} />
+          <ItemSelector
+            data={['eth', 'sol']}
+            selected={networkSelected}
+            setSelected={setNetworkSelected}
+          />
         </View>
 
         <View style={styles.button}>
@@ -59,17 +84,37 @@ const CreateWallet = (props: StackScreenProps<AppStackParameterList, 'CreateWall
                 // Input Check
                 const accountNameError = accountName.value.length <= 0;
                 const passwordError = password.value.length < 8;
-                const passwordConfirmError = password.value !== passwordConfirm.value;
-                if (accountNameError) accountNameDispatch({ type: InputActions.SET_ERROR, payload: 'Gimme a name, bro)' });
-                if (passwordError) passwordDispatch({ type: InputActions.SET_ERROR, payload: 'Not time to go short. Think about security, bro)' });
-                if (passwordConfirmError) passwordConfirmDispatch({ type: InputActions.SET_ERROR, payload: 'U gotta be consistent, bro)' });
+                const passwordConfirmError =
+                  password.value !== passwordConfirm.value;
+                if (accountNameError)
+                  accountNameDispatch({
+                    type: InputActions.SET_ERROR,
+                    payload: 'Gimme a name, bro)',
+                  });
+                if (passwordError)
+                  passwordDispatch({
+                    type: InputActions.SET_ERROR,
+                    payload: 'Not time to go short. Think about security, bro)',
+                  });
+                if (passwordConfirmError)
+                  passwordConfirmDispatch({
+                    type: InputActions.SET_ERROR,
+                    payload: 'U gotta be consistent, bro)',
+                  });
 
-                if (!(accountNameError || passwordError || passwordConfirmError)) {
+                if (
+                  !(accountNameError || passwordError || passwordConfirmError)
+                ) {
                   dispatch(setPassword(password.value));
                   dispatch(setChainType(networkSelected));
-                  console.log('Network Selected: ', networkSelected);
-                  const mnemonic = await utils[store.getState().chain.type!].generateMnemonic();
-                  props.navigation.navigate('Seed', { accountName: accountName.value, mnemonic });
+                  // console.log('Network Selected: ', networkSelected);
+                  const mnemonic = await utils[
+                    store.getState().chain.type!
+                  ].generateMnemonic();
+                  props.navigation.navigate('Seed', {
+                    accountName: accountName.value,
+                    mnemonic,
+                  });
                 }
               }}>
               Create Account

@@ -28,7 +28,8 @@ const TabBar = (props: StackScreenProps<MainStackParameterList, 'TabBar'>) => {
   const routes = props.navigation.getState().routes;
   return (
     <>
-      <View style={routes[routes.length - 1].state?.index !== 0 && { height: 0 }}>
+      <View
+        style={routes[routes.length - 1].state?.index !== 0 && { height: 0 }}>
         <Header />
       </View>
 
@@ -37,7 +38,15 @@ const TabBar = (props: StackScreenProps<MainStackParameterList, 'TabBar'>) => {
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused }) => {
               const icon = icons[route.name];
-              return <Image source={icon} style={{ ...styles.tabBarItem, tintColor: focused ? '#9b924d' : '#ffffff' }} />;
+              return (
+                <Image
+                  source={icon}
+                  style={{
+                    ...styles.tabBarItem,
+                    tintColor: focused ? '#9b924d' : '#ffffff',
+                  }}
+                />
+              );
             },
             headerShown: false,
             tabBarLabel: '',

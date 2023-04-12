@@ -10,9 +10,13 @@ import Button from '../components/Button';
 import { setChainType } from '../store/reducers/chain';
 import store from '../store';
 
-const Network = (props: StackScreenProps<SettingsStackParameterList, 'Network'>) => {
+const Network = (
+  props: StackScreenProps<SettingsStackParameterList, 'Network'>
+) => {
   const dispatch = useDispatch();
-  const [networkSelected, setNetworkSelected] = useState<keyof typeof BLOCKCHAIN_LIST>(store.getState().chain.type);
+  const [networkSelected, setNetworkSelected] = useState<
+    keyof typeof BLOCKCHAIN_LIST
+  >(store.getState().chain.type);
 
   return (
     <View style={styles.container}>
@@ -24,7 +28,11 @@ const Network = (props: StackScreenProps<SettingsStackParameterList, 'Network'>)
 
       <View style={styles.input}>
         <Text style={typography.title2}>Select Network</Text>
-        <ItemSelector data={['eth', 'sol']} selected={networkSelected} setSelected={setNetworkSelected} />
+        <ItemSelector
+          data={['eth', 'sol']}
+          selected={networkSelected}
+          setSelected={setNetworkSelected}
+        />
       </View>
 
       <View style={{ alignItems: 'center' }}>
@@ -33,11 +41,11 @@ const Network = (props: StackScreenProps<SettingsStackParameterList, 'Network'>)
           onPress={() => {
             dispatch(setChainType(networkSelected));
             if (networkSelected === 'eth') {
-              if (store.getState().chain.eth.accounts.length > 1) props.navigation.goBack();
-              else props.navigation.navigate('Register');
+              if (store.getState().chain.eth.accounts.length > 1)
+                props.navigation.goBack();
             } else {
-              if (store.getState().chain.sol.accounts.length > 1) props.navigation.goBack();
-              else props.navigation.navigate('Register');
+              if (store.getState().chain.sol.accounts.length > 1)
+                props.navigation.goBack();
             }
           }}>
           Confirm

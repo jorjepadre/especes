@@ -4,23 +4,32 @@ import { SettingsStackParameterList } from './Settings';
 import { screenHeight, screenWidth, typography } from '../assets';
 import Button from '../components/Button';
 import { useState } from 'react';
-import InputField, { InputActions, useInputReducer } from '../components/InputField';
+import InputField, {
+  InputActions,
+  useInputReducer,
+} from '../components/InputField';
 import store, { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPassword } from '../store/reducers/wallet';
 import ItemSelector from '../components/ItemSelector';
-import { setBiometricsAllowed, setSessionTimeout } from '../store/reducers/security';
+import {
+  setBiometricsAllowed,
+  setSessionTimeout,
+} from '../store/reducers/security';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Security = (props: StackScreenProps<SettingsStackParameterList, 'Security'>) => {
+const Security = (
+  props: StackScreenProps<SettingsStackParameterList, 'Security'>
+) => {
   const dispatch = useDispatch();
 
   // Password Change
   const password = store.getState().wallet.password;
   const [passwordOld, passwordOldDispatch] = useInputReducer('11111111');
   const [passwordNew, passwordNewDispatch] = useInputReducer('00000000');
-  const [passwordNewConfirm, passwordNewConfirmDispatch] = useInputReducer('00000000');
+  const [passwordNewConfirm, passwordNewConfirmDispatch] =
+    useInputReducer('00000000');
 
   // Lock TimeOut
   const [lockTimeOut, lockTimeOutDispatch] = useInputReducer();
@@ -49,18 +58,37 @@ const Security = (props: StackScreenProps<SettingsStackParameterList, 'Security'
         {changePasswordFlag && (
           <View>
             <View style={styles.input}>
-              <Text style={typography.title2}>Password (Minimum 8 Characters)</Text>
-              <InputField secureTextEntry state={passwordOld} dispatch={passwordOldDispatch} placeholder={'Old Password'} />
+              <Text style={typography.title2}>
+                Password (Minimum 8 Characters)
+              </Text>
+              <InputField
+                secureTextEntry
+                state={passwordOld}
+                dispatch={passwordOldDispatch}
+                placeholder={'Old Password'}
+              />
             </View>
 
             <View style={styles.input}>
-              <Text style={typography.title2}>Password (Minimum 8 Characters)</Text>
-              <InputField secureTextEntry state={passwordNew} dispatch={passwordNewDispatch} placeholder={'New Password'} />
+              <Text style={typography.title2}>
+                Password (Minimum 8 Characters)
+              </Text>
+              <InputField
+                secureTextEntry
+                state={passwordNew}
+                dispatch={passwordNewDispatch}
+                placeholder={'New Password'}
+              />
             </View>
 
             <View style={styles.input}>
               <Text style={typography.title2}>Confirm Password</Text>
-              <InputField secureTextEntry state={passwordNewConfirm} dispatch={passwordNewConfirmDispatch} placeholder={'Confirm New Password'} />
+              <InputField
+                secureTextEntry
+                state={passwordNewConfirm}
+                dispatch={passwordNewConfirmDispatch}
+                placeholder={'Confirm New Password'}
+              />
             </View>
 
             <View style={{ alignSelf: 'center' }}>
@@ -69,7 +97,8 @@ const Security = (props: StackScreenProps<SettingsStackParameterList, 'Security'
                 onPress={() => {
                   const wrong = password !== passwordOld.value;
                   const tooShort = passwordNew.value.length < 8;
-                  const noMatch = passwordNew.value !== passwordNewConfirm.value;
+                  const noMatch =
+                    passwordNew.value !== passwordNewConfirm.value;
 
                   if (wrong)
                     passwordOldDispatch({
@@ -112,7 +141,11 @@ const Security = (props: StackScreenProps<SettingsStackParameterList, 'Security'
         {changeLockTimeOutFlag && (
           <View style={{ width: screenWidth * 0.62, alignItems: 'center' }}>
             <Text style={{ alignSelf: 'center' }}>Set Up Auto Lock Time</Text>
-            <InputField state={lockTimeOut} dispatch={lockTimeOutDispatch} placeholder={'Insert Lock Time Out (minutes)'} />
+            <InputField
+              state={lockTimeOut}
+              dispatch={lockTimeOutDispatch}
+              placeholder={'Insert Lock Time Out (minutes)'}
+            />
             <Button
               type="primary"
               onPress={() => {

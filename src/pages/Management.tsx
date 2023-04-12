@@ -1,13 +1,21 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingsStackParameterList } from './Settings';
-import { Clipboard, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Clipboard,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { screenHeight, screenWidth, typography } from '../assets';
 import store, { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTimeout, countDown, showPopup } from '../store/reducers/popup';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Management = (props: StackScreenProps<SettingsStackParameterList, 'Management'>) => {
+const Management = (
+  props: StackScreenProps<SettingsStackParameterList, 'Management'>
+) => {
   const dispatch = useDispatch();
   const chainType = useSelector((state: RootState) => state.chain.type);
   const mnemonic = store.getState().chain[chainType].mnemonic!;
@@ -24,8 +32,11 @@ const Management = (props: StackScreenProps<SettingsStackParameterList, 'Managem
           <TouchableOpacity
             onPress={async () => {
               Clipboard.setString(mnemonic);
-              if (props.route.params) dispatch(showPopup('Copied Backup Phrase'));
-              dispatch(addTimeout(setTimeout(() => dispatch(countDown()), 2000)));
+              if (props.route.params)
+                dispatch(showPopup('Copied Backup Phrase'));
+              dispatch(
+                addTimeout(setTimeout(() => dispatch(countDown()), 2000))
+              );
             }}>
             <View>
               <Text style={{ fontSize: 16, color: '#ffffff' }}>{mnemonic}</Text>

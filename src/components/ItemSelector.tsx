@@ -18,7 +18,8 @@ const ItemSelector: React.FC<Props> = ({ data, selected, setSelected }) => {
       <View style={styles.modal}>
         {data.map((item) => (
           <TouchableOpacity key={item} onPress={() => handleItemPress(item)}>
-            <View style={[styles.item, selected === item && styles.selectedItem]}>
+            <View
+              style={[styles.item, selected === item && styles.selectedItem]}>
               <Text style={{ color: '#ffffff' }}>{item}</Text>
             </View>
           </TouchableOpacity>

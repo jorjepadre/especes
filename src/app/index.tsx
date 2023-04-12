@@ -1,7 +1,10 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import { DarkTheme } from '../assets';
 
 // Store
@@ -47,18 +50,58 @@ const App = () => {
         <SafeAreaProvider>
           <Popup />
           <NavigationContainer theme={DarkTheme}>
-            <Stack.Navigator screenOptions={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}>
-              <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }} />
-              <Stack.Screen name="Main" component={Main} options={{ headerShown: false, gestureEnabled: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }} />
+            <Stack.Navigator
+              screenOptions={{
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}>
+              <Stack.Screen
+                name="Splash"
+                component={Splash}
+                options={{
+                  headerShown: false,
+                  cardStyleInterpolator:
+                    CardStyleInterpolators.forFadeFromBottomAndroid,
+                }}
+              />
+              <Stack.Screen
+                name="Main"
+                component={Main}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: false,
+                  cardStyleInterpolator:
+                    CardStyleInterpolators.forFadeFromBottomAndroid,
+                }}
+              />
 
-              <Stack.Screen name="Register" component={Register} options={options} />
-              <Stack.Screen name="CreateWallet" component={CreateWallet} options={options} />
+              <Stack.Screen
+                name="Register"
+                component={Register}
+                options={options}
+              />
+              <Stack.Screen
+                name="CreateWallet"
+                component={CreateWallet}
+                options={options}
+              />
               <Stack.Screen name="Seed" component={Seed} options={options} />
-              <Stack.Screen name="SeedConfirm" component={SeedConfirm} options={options} />
+              <Stack.Screen
+                name="SeedConfirm"
+                component={SeedConfirm}
+                options={options}
+              />
 
-              <Stack.Screen name="ImportWallet" component={ImportWallet} options={options} />
+              <Stack.Screen
+                name="ImportWallet"
+                component={ImportWallet}
+                options={options}
+              />
 
-              <Stack.Screen name="Unlock" component={Unlock} options={options} />
+              <Stack.Screen
+                name="Unlock"
+                component={Unlock}
+                options={options}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

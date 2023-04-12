@@ -3,7 +3,9 @@ import React from 'react';
 
 const KeyboardRemovableView = (props: { children?: React.ReactNode }) => {
   return (
-    <TouchableWithoutFeedback style={styles.container} onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback
+      style={styles.container}
+      onPress={() => Keyboard.dismiss()}>
       {props.children}
     </TouchableWithoutFeedback>
   );

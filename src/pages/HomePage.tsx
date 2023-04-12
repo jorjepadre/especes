@@ -1,16 +1,25 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import { HomeStackParameterList } from './Home';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { screenWidth, screenHeight, fontScale, typography } from '../assets';
 import { useAccount, useTokenList } from '../utils/hooks';
 import { useCallback, useEffect, useState } from 'react';
 import { NavigationProp, useFocusEffect } from '@react-navigation/native';
 import RateTimer from '../components/RateTimer';
 import { useEthConnection } from '../utils/eth';
-import { usePublicKey, useSolConnection } from '../utils/sol';
+import { getPublicKey, useSolConnection } from '../utils/sol';
 import store from '../store';
 
-const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) => {
+const HomePage = (
+  props: StackScreenProps<HomeStackParameterList, 'HomePage'>
+) => {
   const eth_logo = require('../assets/icons/eth_logo.png');
   const sol_logo = require('../assets/icons/sol_logo.png');
   const other_logo = require('../assets/icons/icon2.png');
@@ -31,7 +40,8 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
         res.push(+tokenBalance / 1e18);
         setBalances([...res]);
       } else {
-        const tokenBalance = await sol.getBalance(usePublicKey(account.pri));
+        const tokenBalance = await sol.getBalance(getPublicKey(account.pri));
+        console.log(tokenBalance);
         res.push(tokenBalance / 1e9);
         setBalances([...res]);
       }
@@ -58,7 +68,11 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
   }, [account]);
 
   let rateBridge: number;
-  const RateTimer = (props: { navigation: NavigationProp<HomeStackParameterList, 'HomePage'>; balance: number; token_id: string }) => {
+  const RateTimer = (props: {
+    navigation: NavigationProp<HomeStackParameterList, 'HomePage'>;
+    balance: number;
+    token_id: string;
+  }) => {
     const [rate, setRate] = useState(0);
 
     useEffect(() => {
@@ -68,11 +82,13 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
     useEffect(
       useCallback(() => {
         const rateApiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${props.token_id}&vs_currencies=usd`;
-        fetch(rateApiUrl).then((res) => res.json().then((res) => setRate(res[props.token_id].usd)));
+        fetch(rateApiUrl).then((res) =>
+          res.json().then((res) => setRate(res[props.token_id].usd))
+        );
         let interval = setInterval(async () => {
           const response = await fetch(rateApiUrl);
           setRate((await response.json())[props.token_id].usd);
-        }, 10000);
+        }, 1000);
         const unsubscribe = props.navigation.addListener('blur', () => {
           clearInterval(interval);
         });
@@ -83,7 +99,9 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
       }, []),
       []
     );
-    return <Text style={styles.rate}>{(rate * props.balance).toFixed(2)} USD</Text>;
+    return (
+      <Text style={styles.rate}>{(rate * props.balance).toFixed(2)} USD</Text>
+    );
   };
 
   return (
@@ -97,13 +115,30 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
           <Image source={other_logo} style={styles.mainToken} />
         )}
 
-        <Text style={styles.balance}>{(balances[selected] ?? previousBalances[selected] ?? '') + ' ' + tokenList[selected].ticker}</Text>
-        <RateTimer navigation={props.navigation} balance={balances[0]} token_id={tokenList[0].token_id.toLowerCase()} />
+        <Text style={styles.balance}>
+          {(balances[selected] ?? previousBalances[selected] ?? '') +
+            ' ' +
+            tokenList[selected].ticker}
+        </Text>
+        <RateTimer
+          navigation={props.navigation}
+          balance={balances[0]}
+          token_id={tokenList[0].token_id.toLowerCase()}
+        />
       </View>
       <View style={styles.buttons}>
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={{ alignItems: 'center', marginBottom: screenHeight * 0.01 }} onPress={() => props.navigation.navigate('Receive', { tokenData: tokenList[selected] })}>
-            <Image source={require('../assets/icons/backward.png')} style={{ ...styles.mainToken, tintColor: '#4D4D4D' }} />
+          <TouchableOpacity
+            style={{ alignItems: 'center', marginBottom: screenHeight * 0.01 }}
+            onPress={() =>
+              props.navigation.navigate('Receive', {
+                tokenData: tokenList[selected],
+              })
+            }>
+            <Image
+              source={require('../assets/icons/backward.png')}
+              style={{ ...styles.mainToken, tintColor: '#4D4D4D' }}
+            />
           </TouchableOpacity>
         </View>
         <View style={{ alignItems: 'center' }}>
@@ -116,7 +151,10 @@ const HomePage = (props: StackScreenProps<HomeStackParameterList, 'HomePage'>) =
                 rate: rateBridge,
               })
             }>
-            <Image source={require('../assets/icons/forward.png')} style={{ ...styles.mainToken, tintColor: '#9b924d' }} />
+            <Image
+              source={require('../assets/icons/forward.png')}
+              style={{ ...styles.mainToken, tintColor: '#9b924d' }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -133,8 +171,18 @@ const styles = StyleSheet.create({
     marginVertical: screenHeight * 0.03,
     alignItems: 'center',
   },
-  mainToken: { width: screenWidth * 0.2, height: screenHeight * 0.15, resizeMode: 'contain', alignItems: 'center' },
-  balance: { fontSize: fontScale * 20, fontFamily: 'OpenSans-SemiBold', marginTop: screenHeight * 0.02, color: '#ffffff' },
+  mainToken: {
+    width: screenWidth * 0.2,
+    height: screenHeight * 0.15,
+    resizeMode: 'contain',
+    alignItems: 'center',
+  },
+  balance: {
+    fontSize: fontScale * 20,
+    fontFamily: 'OpenSans-SemiBold',
+    marginTop: screenHeight * 0.02,
+    color: '#ffffff',
+  },
   buttons: {
     flexDirection: 'row',
     width: '69%',

@@ -5,7 +5,11 @@ import { StyleSheet, Text } from 'react-native';
 import { fontScale } from '../assets';
 
 let rateBridge: number;
-const RateTimer = (props: { navigation: NavigationProp<HomeStackParameterList, 'HomePage'>; balance: number; token_id: string }) => {
+const RateTimer = (props: {
+  navigation: NavigationProp<HomeStackParameterList, 'HomePage'>;
+  balance: number;
+  token_id: string;
+}) => {
   const [rate, setRate] = useState(0);
 
   useEffect(() => {
@@ -15,7 +19,9 @@ const RateTimer = (props: { navigation: NavigationProp<HomeStackParameterList, '
   useEffect(
     useCallback(() => {
       const rateApiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${props.token_id}&vs_currencies=usd`;
-      fetch(rateApiUrl).then((res) => res.json().then((res) => setRate(res[props.token_id].usd)));
+      fetch(rateApiUrl).then((res) =>
+        res.json().then((res) => setRate(res[props.token_id].usd))
+      );
       let interval = setInterval(async () => {
         const response = await fetch(rateApiUrl);
         setRate((await response.json())[props.token_id].usd);
@@ -30,7 +36,9 @@ const RateTimer = (props: { navigation: NavigationProp<HomeStackParameterList, '
     }, []),
     []
   );
-  return <Text style={styles.rate}>{(rate * props.balance).toFixed(2)} USD</Text>;
+  return (
+    <Text style={styles.rate}>{(rate * props.balance).toFixed(2)} USD</Text>
+  );
 };
 
 const styles = StyleSheet.create({

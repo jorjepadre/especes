@@ -4,7 +4,7 @@ export const BLOCKCHAIN_LIST = {
     name: 'Ethereum',
   },
   sol: {
-    rpc: 'https://api.testnet.solana.com',
+    rpc: 'https://api.devnet.solana.com',
     name: 'Solana',
   },
 } as const;
